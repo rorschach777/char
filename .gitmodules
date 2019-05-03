@@ -1,3 +1,6 @@
 [submodule "src/assets/base-styles"]
 	path = src/assets/base-styles
 	url = https://github.com/rorschach777/_base-styles
+[submodule "src/components/_MsLib"]
+	path = src/components/_MsLib
+	url = https://github.com/rorschach777/_MsLibrary
