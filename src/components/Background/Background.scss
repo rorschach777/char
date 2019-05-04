@@ -8,16 +8,4 @@
     background-image: url('../../assets/images/background-1.jpg');
     background-repeat: none;
     background-size: cover;
-    &__con{
-        @include grid-container;
-        @include center-block(15%);
-        @include boxPad;
-        max-width: 100%;
-        width: 1080px;
-   
-        @media only screen and (max-width: $tablet){
-            @include center-block(30vh);
-         }
-        
-    }
 }

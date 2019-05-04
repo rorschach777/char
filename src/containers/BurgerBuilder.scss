@@ -1,0 +1,38 @@
+@import '../assets/base-styles/index.scss';
+@import '../assets/project-styles/variables.scss';
+
+.BurgerBuilder{
+    @include boxPad;
+    position: relative;
+    margin-top: 5rem;
+    background-color: #ddd;
+    border-radius: .5rem;
+    background-color: rgba($color-7,.8);
+    padding: 0px;
+    
+    &__col {
+        @include grid-column(6, $grid-gutterless);
+        @media only screen and (max-width: $tablet){ 
+            @include grid-column(12, $grid-gutterless);
+        }
+        height: 50px;
+        &__con{
+       
+     
+        }
+    }    
+    // left side list
+    ul {
+        display: flex;
+        justify-content: space-between;
+        padding: 5px 0;
+        border-bottom: 1px $color-gray-6 solid;
+        li{
+            display: inline-block;
+            font-size: 1.6rem;
+            color: $color-white;
+            opacity: .9;
+       
+        }
+    }
+}
