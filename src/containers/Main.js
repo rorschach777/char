@@ -3,7 +3,7 @@ import Background from '../components/Background/Background';
 import Intro from './Intro';
 import BurgerBuilder from './BurgerBuilder';
 import ContentCon from '../components/_MsLib/Con/ContentCon/ContentCon';
-import '../assets/project-styles/home.scss';
+import '../assets/styles/project-styles/index.scss';
 import posed from 'react-pose';
 import {Route} from 'react-router-dom'
 const FadeSection = posed.div({

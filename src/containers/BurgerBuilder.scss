@@ -1,38 +1,146 @@
-@import '../assets/base-styles/index.scss';
-@import '../assets/project-styles/variables.scss';
+@import '../assets/styles/project-styles/index.scss';
+@import '../assets/styles/base-styles/index.scss';
 
 .BurgerBuilder{
-    @include boxPad;
-    position: relative;
-    margin-top: 5rem;
-    background-color: #ddd;
+    background-color: $color-7;
+    padding: 1.5rem;
+    margin: 4.5rem auto;
+    color: $color-white;
     border-radius: .5rem;
-    background-color: rgba($color-7,.8);
-    padding: 0px;
-    
-    &__col {
+    &__col{
         @include grid-column(6, $grid-gutterless);
         @media only screen and (max-width: $tablet){ 
             @include grid-column(12, $grid-gutterless);
+
         }
-        height: 50px;
         &__con{
-       
-     
+  
+            height: auto;
+            min-height: 50px;
+
+            // list 
+            ul {
+                display: block;
+                width: 100%;
+        
+
+                li{
+                    display: inline-block;
+                    list-style: none;
+                    padding: 1.5rem 0;
+                    height:1.5rem;
+                    text-align: left;
+                    font-size: 1.6rem;
+                    font-weight: 300;
+                    color: $color-gray-5;
+                    border-bottom: 1px solid $color-gray-6;
+                    font-family: $font-main;
+                    &:nth-child(1){
+
+                        @include grid-column(4, $grid-gutterless);
+                    }
+                    &:nth-child(2){
+                
+                        @include grid-column(3, $grid-gutterless);
+                    }
+                    &:nth-child(3){
+                
+                        @include grid-column(5, $grid-gutterless);
+                    }
+                    
+                }
+            }
+            // list
+
+            //logo
+            
+            &--left{
+                div{
+                    &:nth-child(2){
+                        position: relative;
+                        top: 1.5rem;
+                    }
+                }
+            }
+            &--right{
+                position: relative;
+          
+                @media only screen and (max-width: $tablet){ 
+                    display: none;
+                }
+                div:nth-child(1) {
+                    width: 280px;
+                    height: 7rem;
+                    background-color: $color-7;
+                    position: absolute; 
+                    top: -15px;
+                    left: 20px;
+                }
+            }
         }
-    }    
-    // left side list
-    ul {
-        display: flex;
-        justify-content: space-between;
-        padding: 5px 0;
-        border-bottom: 1px $color-gray-6 solid;
-        li{
-            display: inline-block;
-            font-size: 1.6rem;
-            color: $color-white;
-            opacity: .9;
-       
-        }
+
     }
 }
+.ingredient{
+    height: 35px;
+    
+    width: 100%;
+    &:nth-child(1){
+        margin-top: $buffer-sm;
+    }
+    &__con{
+        @include grid-container;
+        width: 100%;
+        div:nth-child(1){
+            @include grid-column(4, $grid-gutterless);
+        }
+        div:nth-child(2){
+            @include grid-column(3, $grid-gutterless);
+        }
+        div:nth-child(3){
+            @include grid-column(5, $grid-gutterless);
+        }
+    }
+    div{
+        min-height: 2.5rem;
+     
+    }
+    &__actions {
+        button{
+            display: inline-block;
+            text-align: center;
+            margin-right:1rem;
+            padding: .3rem;
+            width: 7rem;
+            color: $color-white;
+            border-radius: 2.5rem;
+            cursor: pointer;
+            opacity: .9;
+           transition: all .2s;
+           border: none;
+            &:hover{
+                transform: translateY(-.5rem);
+            }
+            &:disabled {
+                background-color: $color-gray-7;
+            }
+        }
+        &--more{
+            background-color: $color-5;
+       
+        }
+        &--less{
+            background-color: $color-4;
+           
+        }
+     
+     
+
+ 
+        
+    }
+
+
+
+}
+

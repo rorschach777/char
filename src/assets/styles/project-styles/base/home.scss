@@ -1,4 +1,4 @@
-@import '../base-styles/index.scss';
+@import '../../base-styles/index.scss';
 .char-intro{
     @include center-block(15%);
     @media only screen and (max-width: $tablet){
