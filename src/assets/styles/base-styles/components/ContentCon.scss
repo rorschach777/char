@@ -1,0 +1,11 @@
+
+@import '../../../../assets/styles/project-styles/abstracts/variables.scss';
+
+.ContentCon{
+    @include grid-container;
+    margin-left: auto;
+    margin-right: auto; 
+    @include boxPad;
+    max-width: 100%;
+    width: $main-con;    
+}

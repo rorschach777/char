@@ -1,8 +1,14 @@
 @import './abstracts/variables.scss';
 @import './abstracts/mixins.scss';
 
-
+@import './base/buttons.scss';
 @import './base/document.scss';
 @import './base/typography.scss';
 
+
+
 @import './vendors/_neat.scss';
+
+
+@import './components/ContentCon.scss';
+@import './components/Header.scss';

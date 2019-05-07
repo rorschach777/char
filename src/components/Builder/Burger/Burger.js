@@ -1,11 +1,17 @@
 import React from 'react';
 import Ingredient from './Ingredients/Ingredient'
-import './Burger.scss';
+
 const Burger = (props) => {
     return (
         <div className="Burger">
         <div className="Ingredient bread bread--top"></div>
-        {props.children}
+        {props.ingredients.map((cur, idx)=>{
+                                let quantity = [...Array(props.ingredientQty[cur])];
+                                let ingredients = quantity.map((_, idx)=>{
+                                    return <Ingredient type={cur}/>
+                                });
+                                return ingredients
+                            })}
         <div className="Ingredient bread bread--bottom"></div>
     </div>
     );

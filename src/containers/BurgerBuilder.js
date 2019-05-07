@@ -4,8 +4,7 @@ import Logo from '../components/_MsLib/UI/Logo/Logo';
 import Aux from '../components/_MsLib/Hoc/Aux';
 import ContentCon from '../components/_MsLib/Con/ContentCon/ContentCon';
 import Burger from '../components/Builder/Burger/Burger';
-import Ingredient from '../components/Builder/Burger/Ingredients/Ingredient';
-import './BurgerBuilder.scss';
+import Controls from '../components/Builder/Controls/Controls'
 
 
 // const ingredients = [
@@ -35,6 +34,19 @@ class BugerBuilder extends Component {
             buffalo: 0,
             turkey: 0,
             ham: 0,
+            bacon: 0,
+            cheddar: 0,
+            american: 0,
+            swiss: 0,
+            egg: 0,
+            lettuce: 0,
+            peppers: 0,
+            tomatoes: 0,
+            onions: 0,
+            ketchup: 0,
+            avacado: 0,
+            mayo: 0,
+            chipotle: 0,
             cheese: 0
         },
         toppings: {
@@ -44,11 +56,24 @@ class BugerBuilder extends Component {
             avacado: 0,
         },
         ingredientPrices: {
-            angus: 2.50,
-            buffalo: 2.50,
-            turkey: 3.75,
-            ham: 1.25,
-            cheese: 1.25
+            angus: 2.00,
+            buffalo: 2.75,
+            turkey: 2.50,
+            ham: 2.00,
+            bacon: 1.50,
+            cheddar: .50,
+            american: .50,
+            swiss: .50,
+            egg: 1.00,
+            lettuce: .50,
+            peppers: .50,
+            tomatoes: .75,
+            onions: .50,
+            avacado: 1.00,
+            ketchup: 0,
+            mayo: 0,
+            chipotle: 0,
+            cheese: 0
         }, 
         totalPrice: null
       
@@ -132,11 +157,13 @@ class BugerBuilder extends Component {
         return;
     }
     componentDidMount(){
-        this.sumIngredients()
+        this.sumIngredients();
+        console.log(this.state.ingredients)
     }
     render() {
-        const stateIngs = Object.keys(this.state.ingredients);
-       
+        const ingsKeys = Object.keys(this.state.ingredients);
+        const ingsValues = this.state.ingredients
+        
         return (
             <Aux>
                 <Header>
@@ -153,7 +180,7 @@ class BugerBuilder extends Component {
                         </div>
                         <div className="BurgerBuilder__col__con">
                         {
-                            stateIngs.map((cur, idx)=>{
+                            ingsKeys.map((cur, idx)=>{
                                 return (
                                     <div className="ingredient" id={`${cur}-${idx}`} key={`ingredient${idx}`}>
                                         <div className="ingredient__con">
@@ -161,11 +188,10 @@ class BugerBuilder extends Component {
                                         {this.switchIngredientName(cur)}
                                         </div>
                                         <div className="ingredient__price">
-                                        $2.50
+                                            {this.state.ingredientPrices[cur].toFixed(2)}
                                         </div>
                                         <div className="ingredient__actions">
-                                        <button id={`${cur}-more`}  className="ingredient__actions--more" onClick={(e)=>this.addIngredientHandler(e, cur)}>More</button>
-                                        <button id={`${cur}-less`} className="ingredient__actions--less"  onClick={(e)=>this.removeIngredientHandler(e, cur)}>Less</button>
+                                            <Controls current={cur} add={(e)=>this.addIngredientHandler(e, cur)} remove={(e)=>this.removeIngredientHandler(e,cur)}/>
                                         </div>
                                         </div>
                                     </div>
@@ -180,15 +206,7 @@ class BugerBuilder extends Component {
                         <Logo/> 
                         </div>
                         <div className="BurgerBuilder__col__con">
-                        <Burger>
-                            {stateIngs.map((cur, idx)=>{
-                                let quantity = [...Array(this.state.ingredients[cur])];
-                                let ingredients = quantity.map((_, idx)=>{
-                                    return <Ingredient type={cur}/>
-                                });
-                                return ingredients
-                            })}
-                        </Burger>
+                        <Burger ingredients={ingsKeys} ingredientQty={ingsValues}></Burger>
                         </div>
                    </div>
                     {/* Right */}
