@@ -1,6 +1,7 @@
 import React from 'react';
 
-import Aux from '../../_MsLib/Hoc/Aux'
+import Aux from '../../_MsLib/Hoc/Aux';
+import './_Controls.scss';
 const Controls = (props) => {
     return (
         <Aux>

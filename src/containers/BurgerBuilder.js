@@ -5,7 +5,7 @@ import Aux from '../components/_MsLib/Hoc/Aux';
 import ContentCon from '../components/_MsLib/Con/ContentCon/ContentCon';
 import Burger from '../components/Builder/Burger/Burger';
 import Controls from '../components/Builder/Controls/Controls'
-
+import './_BurgerBuilder.scss';
 
 // const ingredients = [
 // 'Angus Patty',
