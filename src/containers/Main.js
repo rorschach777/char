@@ -20,16 +20,13 @@ const FadeSection = posed.div({
 })
 class Main extends Component {
     state = {
-        introTitle: true
-    }
+        introTitle: false    }
     letsEat=()=>{
         this.setState({
             introTitle: false
         })
     }
     render() {
-   
-
         return (
             <div>
                 <Background>
@@ -38,11 +35,11 @@ class Main extends Component {
                         <BurgerBuilder/>
                     </FadeSection>
                     {/*  */}
-                    <FadeSection pose={this.state.introTitle ? 'open' : 'closed'}>
+                    {/* <FadeSection pose={this.state.introTitle ? 'open' : 'closed'}>
                         <ContentCon style={'char-intro'}>
                             <Intro click={this.letsEat}/>
                         </ContentCon>
-                    </FadeSection>
+                    </FadeSection> */}
                 </Background>
             </div>
         );

@@ -1,0 +1,43 @@
+@import '../../../assets/styles/utilities';
+
+.Summary {
+    color:#fff;
+    &-ing-heading{
+        width: 100%;
+        span{
+            display: inline-block;
+            background-color: $color-2;
+            text-align: center;
+            box-sizing: border-box;
+            border-radius: 25px;
+            width: 25px;
+            height: 25px;
+            padding: .5rem 0;
+            position: relative;
+            top: 0;
+        }
+        h6{
+       
+            display: inline-block;
+            text-transform: uppercase;
+          
+        }
+    }
+    &-ing-body{
+        padding-top: $buffer-md;
+        ul {
+            // min-height: 40rem;
+            span{
+                color: $color-2;
+                margin-right: .5rem;
+            }
+            li{
+            margin: .8rem 0;
+            font-size: 1.4rem;
+            list-style: bullet;
+            }
+        }
+
+    }
+
+}

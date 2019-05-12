@@ -1,27 +1,87 @@
 @import '../../../../assets/styles/utilities';
+.Ingredient-Con {
+    width: 100%;
+    min-height: 4.5rem;
+    margin: .3rem 0;
+    background-repeat: none;
+    position: relative;
+    // background-color: rgba(255,255,255,.7);
+}
+
 .Ingredient {
     width: 100%;
-    min-height: 2.5rem;
-    background-color: #fff;
-    margin: .5rem 0;
-
+    position: absolute;
+    min-height: 11rem;
+    background-size: 100% 100%;
+    background-repeat: none;
 }
 
-.bread {
-    background-color: #FFEF75;
+.Ingredient--lg{
+    margin: -4.5rem 0;
+}
+.Ingredient--sm{
+    margin: -5rem 0;
+}
+
+// .Ingredient img{
+// // max-width: 100%;
+// }
+.bread--top {
+    background-image: url('../../../../assets/images/ingredient-bread-top.png');
+    z-index: 1000;
+    display: block;
+    top: -1rem;
+
+}
+.bread--bottom {
+    background-image: url('../../../../assets/images/ingredient-bread-bottom.png');
+    z-index: 0;
 }
 .buffalo {
-    background-color: #FF3131;
+    background-image: url('../../../../assets/images/ingredient-angus.png');
+
 }
 .angus {
-    background-color: #8B5B3D;
+    background-image: url('../../../../assets/images/ingredient-buffalo.png');
 }
 .turkey {
-    background-color: #8B5B3D;
+    background-image: url('../../../../assets/images/ingredient-turkey.png');
 }
-.turkey {
-    background-color: #FF6100;
+.bacon {
+    background-image: url('../../../../assets/images/ingredient-bacon.png');
 }
-.cheese{
-    background-color: #FFFF31
+
+.cheddar {
+    background-image: url('../../../../assets/images/ingredient-cheddar-cheese.png');
+}
+
+.american {
+    background-image: url('../../../../assets/images/ingredient-american-cheese.png');
+}
+.swiss {
+    background-image: url('../../../../assets/images/ingredient-swiss-cheese.png');
+}
+.egg {
+    background-image: url('../../../../assets/images/ingredient-fried-egg.png');
+}
+.pickles {
+    background-image: url('../../../../assets/images/ingredient-pickles.png');
+}
+.lettuce {
+    background-image: url('../../../../assets/images/ingredient-lettuce.png');
+}
+.tomatoes {
+    background-image: url('../../../../assets/images/ingredient-tomatoes.png');
+}
+.onions {
+    background-image: url('../../../../assets/images/ingredient-onion.png');
+}
+.avacado {
+    background-image: url('../../../../assets/images/ingredient-avacado.png');
+}
+.ketchup {
+    background-image: url('../../../../assets/images/ingredient-ketchup.png');
+}
+.mayo {
+    background-image: url('../../../../assets/images/ingredient-mayo.png');
 }

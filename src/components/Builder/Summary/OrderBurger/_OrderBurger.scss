@@ -1,0 +1,21 @@
+@import '../../../../assets/styles/utilities';
+
+.OrderBurger{
+    background-color:rgba(0,0,0,.6);
+    padding: $buffer-xs;
+    box-sizing: border-box;
+    width: 100%;
+    border-radius: .5rem;
+    text-align: center;
+    margin-top: $buffer-sm;
+
+    h5{
+        @include center-block($buffer-sm);
+        span{
+            color: $color-2;
+        }
+    }
+    a{
+        @include center-block($buffer-sm)
+    }
+}

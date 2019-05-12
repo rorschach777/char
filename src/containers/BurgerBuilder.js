@@ -3,9 +3,11 @@ import Header from '../components/_MsLib/Header/Header';
 import Logo from '../components/_MsLib/UI/Logo/Logo';
 import Aux from '../components/_MsLib/Hoc/Aux';
 import ContentCon from '../components/_MsLib/Con/ContentCon/ContentCon';
+import Builder from '../components/Builder/Builder';
 import Burger from '../components/Builder/Burger/Burger';
 import Controls from '../components/Builder/Controls/Controls'
 import './_BurgerBuilder.scss';
+import { thisTypeAnnotation } from '@babel/types';
 
 // const ingredients = [
 // 'Angus Patty',
@@ -30,24 +32,22 @@ import './_BurgerBuilder.scss';
 class BugerBuilder extends Component {
     state = {
         ingredients: {
-            angus: 0,
-            buffalo: 0,
-            turkey: 0,
-            ham: 0,
-            bacon: 0,
-            cheddar: 0,
-            american: 0,
-            swiss: 0,
-            egg: 0,
-            lettuce: 0,
-            peppers: 0,
             tomatoes: 0,
-            onions: 0,
             ketchup: 0,
             avacado: 0,
             mayo: 0,
-            chipotle: 0,
-            cheese: 0
+            onions: 0,
+            pickles: 0,
+            lettuce: 0,
+            cheddar: 0,
+            american: 0,
+            egg: 0,
+            swiss: 0,
+            bacon: 0,
+            turkey: 0,
+            angus: 0,
+            buffalo: 0,
+      
         },
         toppings: {
             ketchup: 0,
@@ -56,27 +56,49 @@ class BugerBuilder extends Component {
             avacado: 0,
         },
         ingredientPrices: {
-            angus: 2.00,
-            buffalo: 2.75,
-            turkey: 2.50,
-            ham: 2.00,
-            bacon: 1.50,
+            tomatoes: .75,
+            ketchup: 0,
+            avacado: 1.00,
+            mayo: 0,
+            onions: .50,
+            pickles: .50,
+            lettuce: .50,
             cheddar: .50,
             american: .50,
-            swiss: .50,
-            egg: 1.00,
-            lettuce: .50,
-            peppers: .50,
-            tomatoes: .75,
-            onions: .50,
-            avacado: 1.00,
-            ketchup: 0,
-            mayo: 0,
-            chipotle: 0,
-            cheese: 0
+            egg: 1.25,
+            swiss: .75,
+            bacon: 1.50,
+            turkey: 2.50,
+            angus: 2.00,
+            buffalo: 2.75,
+       
         }, 
-        totalPrice: null
+
+        totalPrice: 0
       
+    }
+    burgerIngQtyTotal=()=>{
+        const ings = Object.values(this.state.ingredients);
+        const total = ings.reduce((prev, cur)=>{
+            return prev + cur
+        })
+        return total;
+    }
+    burgerTotal=()=>{
+        const ingredientQty = Object.values(this.state.ingredients);
+        const ingredientPrice = Object.values(this.state.ingredientPrices);
+        const totalPrices = [...Array(ingredientQty.length)].map((cur, idx)=>{
+            let int = ingredientQty[idx] * ingredientPrice[idx];
+            console.log(int)
+            return int;
+        });
+        let totalPrice = totalPrices.reduce((prevInt, cur)=>{
+            return prevInt + cur;
+        })
+        this.setState((prevState, props)=>({
+            totalPrice: totalPrice
+        }));
+        return this.state.totalPrice
     }
     sumIngredients=()=>{
         let ingredients = Object.values(this.state.ingredients);
@@ -87,10 +109,7 @@ class BugerBuilder extends Component {
         let totalPrice = totalPrices.reduce((acc, cur) => {
           return acc + cur;
         });
-        this.setState({
-          totalPrice: totalPrice
-        });
-        console.log(this.state.totalPrice)
+  
     }
     addIngredientHandler = (e, el) =>{
         let target = document.getElementById(e.target.id);
@@ -102,12 +121,14 @@ class BugerBuilder extends Component {
                 ...prevState.ingredients,
                 [el]: transformIngredientQty
               }
-            }),
+            }), this.burgerTotal
         );
         let decButton = target.closest(".ingredient__actions").childNodes[1];
         decButton.removeAttribute("disabled");
         decButton.setAttribute("enabled", "");
-        this.sumIngredients()
+     
+        // this.sumIngredients();
+
     }
     removeIngredientHandler = (e, el) =>{
         let target = document.getElementById(e.target.id);
@@ -120,7 +141,7 @@ class BugerBuilder extends Component {
                     ...prevState.ingredients,
                     [el]: ingredientQty
                   }
-                }),
+                }), this.burgerTotal
             );
         }
         if (ingredientQty === 0) {
@@ -136,80 +157,77 @@ class BugerBuilder extends Component {
             case 'angus':
             return 'Angus Patty';
             break;
-
-            
             case 'buffalo':
             return 'Buffalo Patty'
             break;
             case 'turkey':
             return 'Turkey Patty'
             break;
-            case  'ham':
-            return 'Ham Patty'
+            case  'bacon':
+            return 'Bacon'
             break;
-            case 'cheese':
-            return 'Cheese'
+            case 'cheddar':
+            return 'Cheddar Cheese'
             break;
- 
+            case 'american':
+            return 'American Cheese'
+            break;
+            case 'swiss':
+            return 'Swiss Cheese'
+            break;
+            case 'egg':
+            return 'Fried Egg'
+            break;
+            case 'lettuce':
+            return 'Lettuce'
+            break;
+            case 'tomatoes':
+            return 'Tomatoes'
+            break;
+            case 'onions':
+            return 'Onions'
+            break;
+            case 'ketchup':
+            return 'Ketchup'
+            break;
+            case 'avacado':
+            return 'Avacado Aeoli'
+            break;
+            case 'mayo':
+            return 'Mayo'
+            break;
             default: 
             return 'XXX'
+
         }
         return;
     }
+
     componentDidMount(){
         this.sumIngredients();
-        console.log(this.state.ingredients)
+        this.burgerTotal()
+        console.log(this.state.ingredients);
+    }
+    componentDidUpdate(){
+        
     }
     render() {
-        const ingsKeys = Object.keys(this.state.ingredients);
-        const ingsValues = this.state.ingredients
-        
+
         return (
             <Aux>
                 <Header>
                      <Logo/> 
                 </Header>
                 <ContentCon style="BurgerBuilder">
-                    <div className="BurgerBuilder__col">
-                        <div className="BurgerBuilder__col__con BurgerBuilder__col__con--left">
-                            <ul>
-                                <li>Ingredients</li>
-                                <li>Prices</li>
-                                <li>Actions</li>
-                            </ul>
-                        </div>
-                        <div className="BurgerBuilder__col__con">
-                        {
-                            ingsKeys.map((cur, idx)=>{
-                                return (
-                                    <div className="ingredient" id={`${cur}-${idx}`} key={`ingredient${idx}`}>
-                                        <div className="ingredient__con">
-                                        <div className="ingredient__name">
-                                        {this.switchIngredientName(cur)}
-                                        </div>
-                                        <div className="ingredient__price">
-                                            {this.state.ingredientPrices[cur].toFixed(2)}
-                                        </div>
-                                        <div className="ingredient__actions">
-                                            <Controls current={cur} add={(e)=>this.addIngredientHandler(e, cur)} remove={(e)=>this.removeIngredientHandler(e,cur)}/>
-                                        </div>
-                                        </div>
-                                    </div>
-                                )
-                            })
-                        }
-                        </div>
-                    </div>
-                    {/* LEFT */}
-                    <div className="BurgerBuilder__col">
-                        <div className="BurgerBuilder__col__con BurgerBuilder__col__con--right">
-                        <Logo/> 
-                        </div>
-                        <div className="BurgerBuilder__col__con">
-                        <Burger ingredients={ingsKeys} ingredientQty={ingsValues}></Burger>
-                        </div>
-                   </div>
-                    {/* Right */}
+                    <Builder 
+                    ingredients={this.state.ingredients}
+                    ingTotal={this.burgerIngQtyTotal()}
+                    switchIngs={(ing)=>this.switchIngredientName(ing)}
+                    addIngs={(e, el)=>this.addIngredientHandler(e, el)}
+                    removeIngs={(e, el)=>this.removeIngredientHandler(e, el)}
+                    prices={this.state.ingredientPrices}
+                    totalPrice={this.state.totalPrice}
+                    />
                 </ContentCon>
             </Aux>
         );
