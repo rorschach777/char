@@ -14,8 +14,16 @@ const zIndex =()=>{
         <div className="Burger">
         <Ingredient type="bread--top"/>
            
+        {props.toppings.map((cur, idx)=>{
+            let quantity = [...Array(props.toppingsQty[cur])];
+            let toppings = quantity.map((_, idx2)=>{
+                return <Ingredient key={`${cur}-${idx}`} ingZIndex={zIndex()} type={cur}/>
+            });
+            return toppings
+        })}
  
         {/* BURGER INGREDIENTS */}
+  
         {props.ingredients.map((cur, idx)=>{
             let quantity = [...Array(props.ingredientQty[cur])];
             let ingredients = quantity.map((_, idx2)=>{
@@ -23,6 +31,7 @@ const zIndex =()=>{
             });
             return ingredients
         })}
+
         {/* BURGER INGREDIENTS */}
         <Ingredient type="bread--bottom"/>
     </div>

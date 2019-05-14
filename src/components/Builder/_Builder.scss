@@ -59,21 +59,7 @@
                     }
                 }
             }
-            // &--right{
-            //     position: relative;
-          
-            //     @media only screen and (max-width: $tablet){ 
-            //         display: none;
-            //     }
-            //     div:nth-child(1) {
-            //         width: 215;
-            //         height: 7rem;
-            //         background-color: $color-7;
-            //         // position: absolute; 
-           
-            //         left: 20px;
-            //     }
-            // }
+
         }
 
     }
@@ -112,6 +98,8 @@
         }
         div:nth-child(3){
             @include grid-column(5, $grid-gutterless);
+            box-sizing: border-box;
+            padding: 8px;
         }
     }
     div{

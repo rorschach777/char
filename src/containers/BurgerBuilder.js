@@ -9,71 +9,48 @@ import Controls from '../components/Builder/Controls/Controls'
 import './_BurgerBuilder.scss';
 import { thisTypeAnnotation } from '@babel/types';
 
-// const ingredients = [
-// 'Angus Patty',
-// 'Buffalo Patty',
-// 'Turkey Patty',
-// 'Barbeque Ham',
-// 'Bacon',
-// 'Cheddar Cheese',
-// 'American Cheese',
-// 'Swiss Cheese',
-// 'Fried Egg',
-// 'Lettuce',
-// 'Jalepano Peppers',
-// 'Tomatoes',
-// 'Red Onions',
-// 'Ketchup',
-// 'Avacado Aeoli',
-// 'Mayo',
-// 'Thousand Island'
-// ]
 
 class BugerBuilder extends Component {
     state = {
         ingredients: {
-            tomatoes: 0,
+            cheddar: 0,
+            american: 0,
+            swiss: 0,
+            egg: 0,
+            bacon: 0,
+            turkey: 0,
+            angus: 0,
+            buffalo: 0,
+        },
+        ingredientPrices: {
+            cheddar: 1.00,
+            american: 1.00,
+            swiss: 1.25,
+            egg: 2.25,
+            bacon: 2.25,
+            turkey: 3.50,
+            angus: 2.75,
+            buffalo: 3.75,
+        }, 
+        toppings: {
             ketchup: 0,
             avacado: 0,
             mayo: 0,
             onions: 0,
             pickles: 0,
             lettuce: 0,
-            cheddar: 0,
-            american: 0,
-            egg: 0,
-            swiss: 0,
-            bacon: 0,
-            turkey: 0,
-            angus: 0,
-            buffalo: 0,
-      
+            tomatoes: 0,
+  
         },
-        toppings: {
-            ketchup: 0,
-            mustard: 0,
-            mayo: 0,
-            avacado: 0,
-        },
-        ingredientPrices: {
-            tomatoes: .75,
+        toppingsPrices: {
             ketchup: 0,
             avacado: 1.00,
             mayo: 0,
             onions: .50,
             pickles: .50,
             lettuce: .50,
-            cheddar: .50,
-            american: .50,
-            egg: 1.25,
-            swiss: .75,
-            bacon: 1.50,
-            turkey: 2.50,
-            angus: 2.00,
-            buffalo: 2.75,
-       
-        }, 
-
+            tomatoes: .75,
+        },
         totalPrice: 0
       
     }
@@ -85,20 +62,29 @@ class BugerBuilder extends Component {
         return total;
     }
     burgerTotal=()=>{
-        const ingredientQty = Object.values(this.state.ingredients);
-        const ingredientPrice = Object.values(this.state.ingredientPrices);
-        const totalPrices = [...Array(ingredientQty.length)].map((cur, idx)=>{
-            let int = ingredientQty[idx] * ingredientPrice[idx];
-            console.log(int)
-            return int;
-        });
-        let totalPrice = totalPrices.reduce((prevInt, cur)=>{
+        const ingQty = Object.values(this.state.ingredients);
+        const ingPrice = Object.values(this.state.ingredientPrices);
+        const topQty = Object.values(this.state.toppings);
+        const topPrice = Object.values(this.state.toppingsPrices);
+         
+        const amounts = (elQty, elPrice)=>{
+            let arr = [...Array(elQty.length)].map((cur, idx)=>{
+                let int = elQty[idx] * elPrice[idx];
+                return int;
+            });
+            return arr;
+        }
+
+        let ingAmount = amounts(ingQty, ingPrice);
+        let toppingAmount = amounts(topQty, topPrice);
+
+        let totalAmounts = [...ingAmount, ...toppingAmount]       
+        let totalPrice = totalAmounts.reduce((prevInt, cur)=>{
             return prevInt + cur;
         })
         this.setState((prevState, props)=>({
             totalPrice: totalPrice
         }));
-        return this.state.totalPrice
     }
     sumIngredients=()=>{
         let ingredients = Object.values(this.state.ingredients);
@@ -109,48 +95,48 @@ class BugerBuilder extends Component {
         let totalPrice = totalPrices.reduce((acc, cur) => {
           return acc + cur;
         });
-  
     }
-    addIngredientHandler = (e, el) =>{
+    addIngredientHandler = (e, el, type) => {
         let target = document.getElementById(e.target.id);
-        let ingredientQty = this.state.ingredients[el];
+        let ingredientQty = this.state[type][el];
         let transformIngredientQty = (ingredientQty += 1);
+        //////////////////////
         this.setState(
             prevState => ({
-              ingredients: {
-                ...prevState.ingredients,
+                [type]: {
+                ...prevState[type],
                 [el]: transformIngredientQty
-              }
+                }
             }), this.burgerTotal
         );
-        let decButton = target.closest(".ingredient__actions").childNodes[1];
-        decButton.removeAttribute("disabled");
-        decButton.setAttribute("enabled", "");
-     
-        // this.sumIngredients();
-
+        // let decButton = target.closest(".ingredient__actions").childNodes[1];
+        // decButton.removeAttribute("disabled");
+        // decButton.setAttribute("enabled", "");
     }
-    removeIngredientHandler = (e, el) =>{
+    removeIngredientHandler = (e, el, type) =>{
+    
         let target = document.getElementById(e.target.id);
-        let ingredientQty = this.state.ingredients[el];
-        if (ingredientQty > 0){
-            ingredientQty = ingredientQty - 1;
-            this.setState(
-                prevState => ({
-                  ingredients: {
-                    ...prevState.ingredients,
-                    [el]: ingredientQty
-                  }
-                }), this.burgerTotal
-            );
-        }
+        let ingredientQty = this.state[type][el];
+        let transformIngredientQty = ingredientQty - 1;
+        //////////////////////
         if (ingredientQty === 0) {
             target.setAttribute("disabled", "");
             target.removeAttribute("enabled");
             return;
         }
-        this.sumIngredients()
-
+        else {
+            this.setState(
+                prevState => ({
+                    [type]: {
+                    ...prevState[type],
+                    [el]: transformIngredientQty
+                    }
+                }), this.burgerTotal
+            );
+        }
+       
+     
+        // this.sumIngredients()
     }
     switchIngredientName=(ing)=>{
         switch(ing){
@@ -183,6 +169,9 @@ class BugerBuilder extends Component {
             break;
             case 'tomatoes':
             return 'Tomatoes'
+            break;
+            case 'pickles':
+            return 'Pickles'
             break;
             case 'onions':
             return 'Onions'
@@ -221,11 +210,14 @@ class BugerBuilder extends Component {
                 <ContentCon style="BurgerBuilder">
                     <Builder 
                     ingredients={this.state.ingredients}
+                    ingPrices={this.state.ingredientPrices}
+                    toppings={this.state.toppings}
+                    topPrices={this.state.toppingsPrices}
                     ingTotal={this.burgerIngQtyTotal()}
                     switchIngs={(ing)=>this.switchIngredientName(ing)}
-                    addIngs={(e, el)=>this.addIngredientHandler(e, el)}
-                    removeIngs={(e, el)=>this.removeIngredientHandler(e, el)}
-                    prices={this.state.ingredientPrices}
+                    addIngs={(e, el, type)=>this.addIngredientHandler(e, el, type)}
+                    removeIngs={(e, el, type)=>this.removeIngredientHandler(e, el, type)}
+                  
                     totalPrice={this.state.totalPrice}
                     />
                 </ContentCon>

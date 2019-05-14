@@ -5,21 +5,29 @@ import OrderBurger from './OrderBurger/OrderBurger';
 
 const Summary = (props) => {
     const ingList = () => {
-        const ings = Object.keys(props.ingredients)
-        const ingsQty = Object.values(props.ingredients)
+        const ings = Object.keys(props.ingredients);
+        const ingsQty = Object.values(props.ingredients);
         const arr = [...Array(ings.length)]
-        let x =  ings.map((cur, idx)=>{
-            if (ingsQty[idx] === 0){
-              
-            }
-            else {
+
+        let ingredients =  ings.map((cur, idx)=>{
+            if (ingsQty[idx] !== 0){
                 return <li><span>({ingsQty[idx]})</span>{props.switchIngs(cur)}</li>  
             }
-           
+       
         })
-        return x;
+        return ingredients;
 
         
+    }
+    const topList = ()=>{
+        const tops = Object.keys(props.toppings);
+        const topsQty = Object.values(props.toppings);
+        let toppings =  tops.map((cur, idx)=>{
+            if (topsQty[idx] !== 0){
+                return <li><span>({topsQty[idx]})</span>{props.switchIngs(cur)}</li>  
+            }
+        });
+        return toppings;
     }
     return (
         <div className="Summary">
@@ -28,14 +36,11 @@ const Summary = (props) => {
             </div>
             <div className="Summary-ing-body">
                 <ul>
-                    {ingList()}
-                    {/* <li><span>(2)</span>Ingredient Name</li>
-                    <li><span>(2)</span>Ingredient Name</li>
-                    <li><span>(2)</span>Ingredient Name</li>
-                    <li><span>(2)</span>Ingredient Name</li>
-                    <li><span>(2)</span>Ingredient Name</li>
-                    <li><span>(2)</span>Ingredient Name</li>
-                    <li><span>(2)</span>Ingredient Name</li> */}
+                    {
+                        ingList()
+                      
+                    }
+                    {  topList()}
                 </ul>
             </div>
             <OrderBurger

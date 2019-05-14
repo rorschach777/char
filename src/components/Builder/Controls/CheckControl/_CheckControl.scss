@@ -1,0 +1,13 @@
+@import '../../../../assets/styles/utilities';
+
+.ingredient__actions {
+    &--added{
+        background-color: $color-5;
+        width: 98%;
+    }
+    &--remove{
+        background-color: $color-4;
+        width: 98%;
+    }
+ 
+}
