@@ -72,6 +72,12 @@ $neat-grid: () !default;
 ///
 
 $neat-custom-grid: () !default;
+$grid-standard: (
+columns: 12,
+gutter: 15px,
+media: 992px,
+color: rgba(#00d4ff, 0.25),
+);
 $grid-gutterless: (
 columns: 12,
 gutter: 0px,

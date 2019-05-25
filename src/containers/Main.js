@@ -1,26 +1,42 @@
 import React, { Component } from 'react';
 import Background from '../components/Background/Background';
-import Intro from './Intro';
+import Intro from './Intro/Intro';
 import BurgerBuilder from './BurgerBuilder';
 import ContentCon from '../components/_MsLib/Con/ContentCon/ContentCon';
+import {Form} from './Form/Form'
+import Header from '../components/_MsLib/Header/Header';
+import Logo from '../components/_MsLib/UI/Logo/Logo';
 import posed from 'react-pose';
-import {Route} from 'react-router-dom'
-const FadeSection = posed.div({
-    open: {
-        y: '0%',
-        opacity: 1, 
-        delay: 500, 
-        applyAtStart: {display: 'block'}
-    }, 
-    closed: {
-        y: '-500%',
-        opacity: 0,
-        applyAtEnd: {display: 'none'}
-    }
-})
+import {Route} from 'react-router-dom';
+import BugerBuilder from './BurgerBuilder';
 class Main extends Component {
     state = {
-        introTitle: false    }
+        introTitle: false, 
+        menuCollapsed: false,
+        orderInfo: null
+
+    }
+    toggleMenu=()=>{
+        this.setState(prevState=>({
+            menuCollapsed: !prevState.menuCollapsed
+        }))
+    }
+    orderInfo=(obj)=>{
+        let orderInfo = {
+            
+        };
+    
+        let formFields = document.querySelectorAll('.Form__input-group');
+        console.log(formFields)
+        formFields.forEach((cur, idx)=>{
+            // // orderInfo[cur.childNodes[0]] = cur.childNodes[1].value
+            // orderInfo[`${cur}`] = 'x'
+            orderInfo[cur[0].innerHTML] = 'X'
+         
+        })
+        console.log(orderInfo)
+
+    }
     letsEat=()=>{
         this.setState({
             introTitle: false
@@ -31,15 +47,16 @@ class Main extends Component {
             <div>
                 <Background>
                     {/* LOBBY */}
-                    <FadeSection pose={this.state.introTitle ? 'closed' : 'open'}>
-                        <BurgerBuilder/>
-                    </FadeSection>
-                    {/*  */}
-                    {/* <FadeSection pose={this.state.introTitle ? 'open' : 'closed'}>
-                        <ContentCon style={'char-intro'}>
-                            <Intro click={this.letsEat}/>
-                        </ContentCon>
-                    </FadeSection> */}
+                    <Header 
+                    toggleMenu={this.toggleMenu}
+                    menuCollapsed={this.state.menuCollapsed}
+                    menuItems={['Menu', 'Builder', 'Orders']}
+                    >
+                    <Logo/> 
+                    </Header>
+                    <Route exact path='/build' component={BugerBuilder} />
+                    <Route exact path="/checkout" render={()=><Form deliveryType={this.state.deliveryType} orderInfo={(obj)=>this.orderInfo(obj)}/>}/>
+                    <Route exact path='/' component={Intro}/>
                 </Background>
             </div>
         );

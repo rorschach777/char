@@ -1,0 +1,54 @@
+.u-buffer {
+    margin-top: 2.5rem;
+}
+.u-pad-sm{
+  padding: 15px;
+  box-sizing: border-box; 
+}
+.u-pad-xs{
+  padding: 5px;
+  box-sizing: border-box; 
+}
+.u-margin-top-15{
+  margin-top: 15px;
+}
+.u-hide {
+  display: none;
+}
+
+.phone{
+
+  @media only screen and (min-width: 0px) and (max-width: $phone){ 
+    display: block;
+  }
+  @media only screen and (min-width: calc(#{$phone} + 1px)){ 
+    display: none;
+  }
+
+}
+.tablet{
+
+  @media only screen and (min-width: #{$phone} + 1px) and (max-width: $desktop){ 
+    display: block;
+  }
+  @media only screen and (max-width: $phone){ 
+    display: none;
+  }
+  @media only screen and (max-width: $desktop){ 
+    display: none;
+  }
+}
+.desktop{
+    @media only screen and (min-width: $desktop) { 
+      display: block;
+    }
+    @media only screen and (min-width: 0) and (max-width: calc(#{$desktop} - 1px)){ 
+      display: none;
+    }
+}
+
+.u-border-bottom{
+
+    border-bottom: solid 1px rgba(255,255,255, .2)
+
+}

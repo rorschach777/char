@@ -17,7 +17,7 @@ const Ingredient = (props) => {
     }
     return (
     <div className="Ingredient-Con">
-        <div style={{zIndex: props.ingZIndex }} className={`Ingredient ${ingSize(props.type)} ${props.type} `}></div>
+        <div id={props.id} style={{zIndex: props.ingZIndex }} className={`Ingredient ${ingSize(props.type)} ${props.type} `}></div>
     </div>
     )
 };

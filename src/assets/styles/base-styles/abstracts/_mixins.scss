@@ -9,10 +9,22 @@
 @mixin gradient($color1: #333, $color2: #ddd, $angle: 90){
   background-image: linear-gradient($angle, $color1, $color2);
 }
+@mixin blackOverlay(){
+  background-color: rgba(0,0,0,.4);
+}
 @mixin alpha($color1: rgb(255,255,255), $alpha: 1){
   color: rgba($color1, $alpha)
 }
-@mixin boxPad($pad: 1.5rem){
-  padding: $pad;
+@mixin boxPad($x: 0, $y: 0){
+  padding: $x $y;
   box-sizing: border-box;
+}
+@mixin border-bottom($color: #cccccc){
+    border-bottom: 1px solid $color;
+}
+@mixin border-top($color: #cccccc){
+  border-top: 1px solid $color;
+}
+@mixin hide(){
+  display: none;
 }

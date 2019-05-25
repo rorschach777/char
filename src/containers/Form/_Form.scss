@@ -1,0 +1,53 @@
+@import '../../assets/styles/utilities';
+
+.Form {
+    margin-top: 3.5rem;
+    @include boxPad(1.5rem, 1.5rem);
+    background-color: $color-7;
+    border-radius: .5rem;
+    h3{
+        color: $color-white;
+        padding-left: 1.5rem;
+        text-transform: uppercase;
+
+    }
+    &__row{
+        width: 100%;
+    
+        // background-color: $color-white;
+        @include boxPad(1.5rem, 0);
+        margin: 1.5rem auto;
+        height: auto; 
+        overflow: hidden;
+    }
+    &__actions{
+        text-align: center;
+        @include boxPad(2.5rem);
+        @include blackOverlay();
+        @include center-block;
+        margin-bottom: 5rem;
+        width: 40rem;
+        border-radius: .5rem;
+        height: auto;
+        overflow: hidden;
+        button{
+            display: inline-block;
+        }
+        &__btn{
+            display: inline-block;
+            margin: 1.5rem;
+        }
+        .edit {
+            background-color: $color-3;
+     
+        }
+        .checkout{
+            background-color: $color-1;
+       
+         
+        }
+        h4{
+            color: $color-white !important;
+        }
+    }
+}

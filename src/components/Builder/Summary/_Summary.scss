@@ -4,6 +4,10 @@
     color:#fff;
     box-sizing: border-box; 
     padding-left: 1.5rem;
+    background-color: rgba(0,0,0,.2);
+    min-height: 25rem;
+    @include boxPad(1.5rem 1.5rem);
+    border-radius: .5rem;
     &-ing-heading{
         width: 100%;
         span{
@@ -26,20 +30,27 @@
         }
     }
     &-ing-body{
-        padding-top: $buffer-md;
+        // padding-top: $buffer-md;
         ul {
             // min-height: 40rem;
             span{
                 color: $color-2;
-                margin-right: .5rem;
+                // margin-left: .5rem;
+                // margin-right: .5rem;
             }
             li{
             margin: .8rem 0;
             font-size: 1.4rem;
             list-style: bullet;
+            list-style-position: inside;
+            // padding-left: .5rem;
             }
         }
-
     }
+}
 
+.desktopContent{
+    @media only screen and (max-width: $phone){ 
+        display: none;
+    }
 }

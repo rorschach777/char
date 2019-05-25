@@ -1,17 +1,33 @@
 @import '../../assets/styles/utilities';
-.BurgerBuilder{
-    background-color: $color-7;
-    padding: 1.5rem;
+$height: 90rem;
+
+.Builder{
+    @include boxPad(1.5rem 1.5rem);
     margin: 4.5rem auto;
     color: $color-white;
     border-radius: .5rem;
+    // height: $height;
+    background-color: $color-7;
+    min-height: 65rem;
+    height: auto;
+    overflow: hidden;
+    position: relative; 
+}
+.BurgerBuilder{
+
+    @media only screen and (max-width: $phone){ 
+        margin: 0rem auto;
+    }
     &__col{
         @include grid-column(6, $grid-gutterless);
- 
         @media only screen and (max-width: $tablet){ 
-            @include grid-column(12, $grid-gutterless);
-
+            @include grid-column(6, $grid-gutterless);
         }
+        @media only screen and (max-width: $phone){
+            @include grid-column(12, $grid-gutterless); 
+         }
+
+
         &__con{
   
             height: auto;
@@ -62,6 +78,16 @@
 
         }
 
+        &__mobile-controls{
+            @include boxPad(1.5rem);
+            margin: 1rem 0;
+            width: 100%;
+            
+            @media only screen and (min-width: $tablet){
+                display: none;
+             }
+        }
+
     }
 }
 .logo-row{
@@ -77,12 +103,12 @@
 .half-col{
     @include grid-column(6, $grid-gutterless);
     position: relative;
-    height: 100%;
+    // min-height: 600px;
+    height: auto;
 
 }
 .ingredient{
     height: 35px;
-    
     width: 100%;
     &:nth-child(1){
         margin-top: $buffer-sm;
@@ -108,3 +134,113 @@
     }
 }
 
+.RotatingCard {
+    // position: relative;
+    @media only screen and (max-width: $phone){
+        perspective: 150rem;
+        -moz-perspective: 150rem;
+        position: relative;
+    }
+
+
+    &__side{
+        @include boxPad(1.5rem);
+        background-color: $color-7;
+        height: auto;
+
+
+        transition: all 2s;
+        position: absolute;
+        transition: all .8s ease;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        border-radius: 3px;
+        overflow: hidden;
+        box-shadow: 0 1.5rem 4rem rgba($color-black, .15);
+        &--front {
+            // background-color: $color-white;
+        }
+
+        &--back {
+            transform: rotateY(180deg);
+            // background-color: $color-gray-3;
+        }
+  
+    }
+    &:hover &__side--front {
+        transform: rotateY(-180deg);
+    }
+
+    &:hover &__side--back {
+        transform: rotateY(0);
+
+    }
+}
+.review{
+    @include center-block(1rem);
+    background-color: $color-1;
+}
+.mobile-burger{
+    max-height: 350px;
+    // background-color: #ddd;
+}
+.color-1{
+    background-color:$color-gray-1;
+}
+.color-2{
+    background-color: $color-gray-3;
+}
+
+.ingredients-title-mobile{
+    @include border-bottom($color-gray-4);
+    padding: .5rem 0;
+}
+
+.mobile-order-burger{
+    width: 100%;
+    padding: .5rem;
+
+}
+
+.BurgerBuilder-mobile{
+  position: relative;
+
+   .logo-mobile{
+        max-width: 10rem;
+        img{
+            margin: 1rem 0!important;
+        }
+    }
+    &--left{
+        @include grid-column(6, $grid-gutterless);
+    }
+    &--right{
+        @include grid-column(6, $grid-gutterless);
+    }
+    &--bottom{
+        @include grid-column(12, $grid-gutterless);
+        @include border-top($color-gray-4);
+        padding: 2.5rem  0;
+        bottom: 0;
+        width: 100%;
+        margin-top: 1rem;
+        button{
+            display: inline-block !important;
+        }
+        .mobile-btn{
+            width: 45%;
+            margin: 1rem .5rem;
+        }
+        .edit{
+            background-color: $color-4;
+         
+        }
+        .order{
+            background-color: $color-1;
+        }
+    }
+}

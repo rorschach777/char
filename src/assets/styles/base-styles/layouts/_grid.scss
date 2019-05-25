@@ -1,0 +1,229 @@
+.col-12-gutterless{
+    @include grid-column(12, $grid-gutterless);
+}
+.col-11-gutterless{
+    @include grid-column(11, $grid-gutterless);
+}
+.col-10-gutterless{
+    @include grid-column(10, $grid-gutterless);
+}
+.col-9-gutterless{
+    @include grid-column(9, $grid-gutterless);
+}
+.col-8-gutterless{
+    @include grid-column(8, $grid-gutterless);
+}
+.col-7-gutterless{
+    @include grid-column(7, $grid-gutterless);
+}
+.col-6-gutterless{
+    @include grid-column(6, $grid-gutterless);
+}
+.col-5-gutterless{
+    @include grid-column(5, $grid-gutterless);
+}
+.col-4-gutterless{
+    @include grid-column(4, $grid-gutterless);
+}
+.col-3-gutterless{
+    @include grid-column(3, $grid-gutterless);
+}
+.col-2-gutterless{
+    @include grid-column(2, $grid-gutterless);
+}
+.col-1-gutterless{
+    @include grid-column(1, $grid-gutterless);
+}
+
+
+
+.col-lg-12{
+    @include grid-column(12, $grid-standard);
+
+}
+.col-lg-11{
+    @include grid-column(11, $grid-standard);
+
+}
+.col-lg-10{
+    @include grid-column(10, $grid-standard);
+
+}
+.col-lg-9{
+    @include grid-column(9, $grid-standard);
+
+}
+.col-lg-8{
+    @include grid-column(8, $grid-standard);
+
+}
+.col-lg-7{
+    @include grid-column(7, $grid-standard);
+
+}
+.col-lg-6{
+    @include grid-column(6, $grid-standard);
+ 
+}
+.col-lg-5{
+    @include grid-column(5, $grid-standard);
+
+}
+.col-lg-4{
+    @include grid-column(4, $grid-standard);
+
+
+}
+.col-lg-3{
+    @include grid-column(3, $grid-standard);
+
+}
+.col-lg-2{
+    @include grid-column(2, $grid-standard);
+}
+.col-lg-1{
+    @include grid-column(1, $grid-standard);
+}
+
+
+.col-md-12{
+    @media only screen and (max-width: $tablet){ 
+        @include grid-column(12)
+    }
+}
+.col-md-11{
+
+    @media only screen and (max-width: $tablet){ 
+        @include grid-column(11)
+    }
+}
+.col-md-10{
+
+    @media only screen and (max-width: $tablet){ 
+        @include grid-column(10)
+    }
+}
+.col-md-9{
+
+    @media only screen and (max-width: $tablet){ 
+        @include grid-column(9)
+    }
+}
+.col-md-8{
+
+    @media only screen and (max-width: $tablet){ 
+        @include grid-column(8)
+    }
+}
+.col-md-7{
+
+    @media only screen and (max-width: $tablet){ 
+        @include grid-column(7)
+    }
+}
+.col-md-6{
+
+    @media only screen and (max-width: $tablet){ 
+        @include grid-column(6)
+    }
+}
+.col-md-5{
+
+    @media only screen and (max-width: $tablet){ 
+        @include grid-column(5)
+    }
+}
+.col-md-4{
+
+    @media only screen and (max-width: $tablet){ 
+        @include grid-column(4)
+    }
+}
+.col-md-3{
+
+    @media only screen and (max-width: $tablet){ 
+        @include grid-column(3)
+    }
+}
+.col-md-2{
+    @media only screen and (max-width: $tablet){ 
+        @include grid-column(2)
+    }
+}
+.col-md-1{
+    @media only screen and (max-width: $tablet){ 
+        @include grid-column(1)
+    }
+}
+
+
+
+.col-sm-12{
+    @media only screen and (max-width: $phone){ 
+        @include grid-column(12)
+    }
+}
+.col-sm-11{
+
+    @media only screen and (max-width: $phone){ 
+        @include grid-column(11)
+    }
+}
+.col-sm-10{
+
+    @media only screen and (max-width: $phone){ 
+        @include grid-column(10)
+    }
+}
+.col-sm-9{
+
+    @media only screen and (max-width: $phone){ 
+        @include grid-column(9)
+    }
+}
+.col-sm-8{
+
+    @media only screen and (max-width: $phone){ 
+        @include grid-column(8)
+    }
+}
+.col-sm-7{
+
+    @media only screen and (max-width: $phone){ 
+        @include grid-column(7)
+    }
+}
+.col-sm-6{
+
+    @media only screen and (max-width: $phone){ 
+        @include grid-column(6)
+    }
+}
+.col-sm-5{
+
+    @media only screen and (max-width: $phone){ 
+        @include grid-column(5)
+    }
+}
+.col-sm-4{
+
+    @media only screen and (max-width: $phone){ 
+        @include grid-column(4)
+    }
+}
+.col-sm-3{
+
+    @media only screen and (max-width: $phone){ 
+        @include grid-column(3)
+    }
+}
+.col-sm-2{
+    @media only screen and (max-width: $phone){ 
+        @include grid-column(2)
+    }
+}
+.col-sm-1{
+    @media only screen and (max-width: $phone){ 
+        @include grid-column(1)
+    }
+}

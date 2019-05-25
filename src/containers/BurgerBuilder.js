@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
-import Header from '../components/_MsLib/Header/Header';
+
 import Logo from '../components/_MsLib/UI/Logo/Logo';
 import Aux from '../components/_MsLib/Hoc/Aux';
 import ContentCon from '../components/_MsLib/Con/ContentCon/ContentCon';
 import Builder from '../components/Builder/Builder';
 import Burger from '../components/Builder/Burger/Burger';
 import Controls from '../components/Builder/Controls/Controls'
-import './_BurgerBuilder.scss';
+
 import { thisTypeAnnotation } from '@babel/types';
+import { transform } from 'popmotion';
 
 
 class BugerBuilder extends Component {
@@ -66,7 +67,6 @@ class BugerBuilder extends Component {
         const ingPrice = Object.values(this.state.ingredientPrices);
         const topQty = Object.values(this.state.toppings);
         const topPrice = Object.values(this.state.toppingsPrices);
-         
         const amounts = (elQty, elPrice)=>{
             let arr = [...Array(elQty.length)].map((cur, idx)=>{
                 let int = elQty[idx] * elPrice[idx];
@@ -74,10 +74,8 @@ class BugerBuilder extends Component {
             });
             return arr;
         }
-
         let ingAmount = amounts(ingQty, ingPrice);
         let toppingAmount = amounts(topQty, topPrice);
-
         let totalAmounts = [...ingAmount, ...toppingAmount]       
         let totalPrice = totalAmounts.reduce((prevInt, cur)=>{
             return prevInt + cur;
@@ -100,6 +98,7 @@ class BugerBuilder extends Component {
         let target = document.getElementById(e.target.id);
         let ingredientQty = this.state[type][el];
         let transformIngredientQty = (ingredientQty += 1);
+        console.log(target)
         //////////////////////
         this.setState(
             prevState => ({
@@ -109,34 +108,58 @@ class BugerBuilder extends Component {
                 }
             }), this.burgerTotal
         );
-        // let decButton = target.closest(".ingredient__actions").childNodes[1];
-        // decButton.removeAttribute("disabled");
-        // decButton.setAttribute("enabled", "");
-    }
-    removeIngredientHandler = (e, el, type) =>{
-    
-        let target = document.getElementById(e.target.id);
-        let ingredientQty = this.state[type][el];
-        let transformIngredientQty = ingredientQty - 1;
-        //////////////////////
-        if (ingredientQty === 0) {
-            target.setAttribute("disabled", "");
-            target.removeAttribute("enabled");
-            return;
+        if (transformIngredientQty === 1 && target.id.includes('inc')) {
+            let decButton = target.closest(".ingredient__actions").childNodes[1];
+            decButton.disabled = false;
         }
         else {
-            this.setState(
-                prevState => ({
-                    [type]: {
-                    ...prevState[type],
-                    [el]: transformIngredientQty
-                    }
-                }), this.burgerTotal
-            );
+            return;
         }
-       
-     
+    }
+    removeIngredientHandler = (e, el, type) =>{
+        let target = document.getElementById(e.target.id);
+        let ingredientQty = this.state[type][el];
+        let transformIngredientQty = (ingredientQty -= 1);
+            if (transformIngredientQty === -1){
+                
+                return;
+            }
+            else if (transformIngredientQty === 0 ){
+                if (target.id.includes('inc')){
+                    let decButton = target.closest(".ingredient__actions").childNodes[1];
+                    decButton.disabled = true;
+                }
+         
+
+                this.setState(
+                    
+                    prevState => ({
+                        [type]: {
+                        ...prevState[type],
+                        [el]: transformIngredientQty
+                        }
+                    }), this.burgerTotal
+                );
+            }
+            else {
+             
+                this.setState(
+                    
+                    prevState => ({
+                        [type]: {
+                        ...prevState[type],
+                        [el]: transformIngredientQty
+                        }
+                    }), this.burgerTotal
+                );
+            }
         // this.sumIngredients()
+    }
+    disableLessButtons = () => {
+        let arr = document.querySelectorAll('.ingredient__actions--less');
+        arr.forEach((cur, idx)=>{
+            cur.disabled = true
+        })
     }
     switchIngredientName=(ing)=>{
         switch(ing){
@@ -194,7 +217,8 @@ class BugerBuilder extends Component {
 
     componentDidMount(){
         this.sumIngredients();
-        this.burgerTotal()
+        this.burgerTotal();
+        this.disableLessButtons();
         console.log(this.state.ingredients);
     }
     componentDidUpdate(){
@@ -204,9 +228,7 @@ class BugerBuilder extends Component {
 
         return (
             <Aux>
-                <Header>
-                     <Logo/> 
-                </Header>
+          
                 <ContentCon style="BurgerBuilder">
                     <Builder 
                     ingredients={this.state.ingredients}
@@ -217,7 +239,6 @@ class BugerBuilder extends Component {
                     switchIngs={(ing)=>this.switchIngredientName(ing)}
                     addIngs={(e, el, type)=>this.addIngredientHandler(e, el, type)}
                     removeIngs={(e, el, type)=>this.removeIngredientHandler(e, el, type)}
-                  
                     totalPrice={this.state.totalPrice}
                     />
                 </ContentCon>

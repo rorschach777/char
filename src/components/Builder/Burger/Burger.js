@@ -2,38 +2,48 @@ import React from 'react';
 import Ingredient from './Ingredients/Ingredient'
 import './_Burger.scss';
 import BreadTop from '../../../assets/images/ingredient-bread-top.png';
+
+
 const Burger = (props) => {
 
-let idx = 999
-const zIndex =()=>{
-    idx = idx - 1 ;
-    return idx;
-}
-
+    let idx = 999
+    const zIndex =()=>{
+        idx = idx - 1 ;
+        return idx;
+    }
+    let toppings = props.toppings.map((cur, idx)=>{
+        let quantity = [...Array(props.toppingsQty[cur])];
+        let tops = quantity.map((_, idx2)=>{
+            return <Ingredient key={`${cur}-${idx}`} ingZIndex={zIndex()} type={cur}/>
+        });
+        return tops
+    });
+    let ingredients = props.ingredients.map((cur, idx)=>{
+        let quantity = [...Array(props.ingredientQty[cur])];
+        let ings = quantity.map((_, idx2)=>{
+                return <Ingredient key={`${cur}-${idx}`} ingZIndex={zIndex()} type={cur}/>
+            });
+        return ings
+    })
+    let burgerContents = (ings, toppings)=>{
+        let burger = <div><div>{toppings}</div><div>{ings}</div></div>
+        if (props.totalPrice === 0){
+           return (<div className="empty "><p>Your burger is currently empty. </p></div>)
+        }
+        else {
+            return (
+          
+                burger
+                
+            )
+        }
+    }
     return (
         <div className="Burger">
-        <Ingredient type="bread--top"/>
-           
-        {props.toppings.map((cur, idx)=>{
-            let quantity = [...Array(props.toppingsQty[cur])];
-            let toppings = quantity.map((_, idx2)=>{
-                return <Ingredient key={`${cur}-${idx}`} ingZIndex={zIndex()} type={cur}/>
-            });
-            return toppings
-        })}
- 
-        {/* BURGER INGREDIENTS */}
-  
-        {props.ingredients.map((cur, idx)=>{
-            let quantity = [...Array(props.ingredientQty[cur])];
-            let ingredients = quantity.map((_, idx2)=>{
-                return <Ingredient key={`${cur}-${idx}`} ingZIndex={zIndex()} type={cur}/>
-            });
-            return ingredients
-        })}
-
-        {/* BURGER INGREDIENTS */}
-        <Ingredient type="bread--bottom"/>
+        <Ingredient id="bread-top" type="bread--top"/>
+      
+        {   burgerContents(ingredients, toppings)  }
+        <Ingredient id="bread-bottom" type="bread--bottom"/>
     </div>
     );
 };
