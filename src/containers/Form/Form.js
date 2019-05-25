@@ -6,11 +6,12 @@ import Select from '../../components/_MsLib/UI/Form/Select/Select';
 import ButtonMedium from '../../components/_MsLib/UI/Buttons/ButtonMedium/ButtonMedium';
 import {NavLink} from 'react-router-dom';
 
+
 export class Form extends Component {
     constructor(props){
         super(props);
         this.state = {
-            delivery: true, 
+            delivery: false, 
             controls: {
                 firstName: {
                     inputType: 'input',
@@ -54,6 +55,7 @@ export class Form extends Component {
                     elementConfig: {}, 
                     valid: false, 
                     validation: {
+                        required: true,
                        minLength: 10
                     },
                     placeholder: 'Phone Number',
@@ -65,6 +67,7 @@ export class Form extends Component {
                     inputType: 'select',
                     elementConfig: {
                         options: [
+                            {value: null, displayName : '-- SELECT DELIVERY TYPE --'},
                             {value: 'Pickup', displayName : 'Pickup'},
                             {value: 'Delivery', displayName : 'Delivery'} 
                          
@@ -75,7 +78,6 @@ export class Form extends Component {
                     validation: {
                         required: true
                     },
-              
                     placeholder: 'Delivery Method',
                     layout: 'col-lg-4 col-md-6', 
                     styles: '', 
@@ -87,6 +89,7 @@ export class Form extends Component {
                     valid: false, 
                     validation: {
                         required: true
+                        
                     },
                     placeholder: 'Address',
                     layout: 'col-lg-4 col-md-5', 
@@ -110,8 +113,9 @@ export class Form extends Component {
                     elementConfig: {}, 
                     valid: false, 
                     validation: {
-                        required: true,
-                        maxLength: 5,
+                 
+                        zip: true
+                   
                  
                     },
                     placeholder: 'Zip',
@@ -119,12 +123,17 @@ export class Form extends Component {
                     styles: '', 
                     touched: false
                 },
-                formIsValid: true
+              
         
-            }
+            },
+            formIsValid: false, 
+            checkoutMessage: 'Please Enter Your Info Above'
         }
     }
- 
+    sayHi=(e)=> {
+        e.preventDefault();
+        console.log('hi');
+    }
     selectChange = (e)=> {
         if (e.target.value === 'Delivery'){
             this.setState(prevState=>({
@@ -142,7 +151,7 @@ export class Form extends Component {
         let isValid = true; 
      
         if (rules.required){
-            isValid = value.trim() !== '' && isValid;
+            isValid = value.length > 0 && isValid;
         }
         if (rules.email){
             const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
@@ -154,6 +163,9 @@ export class Form extends Component {
         if(rules.maxLength){
             isValid = value.length <= rules.maxLength
            
+        }
+        if(rules.zip){
+            isValid = value.length === 5
         }
         return isValid;
     
@@ -171,6 +183,18 @@ export class Form extends Component {
             updatedFormElement.elementConfig.delivery = true
             console.log('true')
         }
+        else if (inputIdentifier === 'deliveryType' && event.target.value === 'Pickup'){
+            updatedOrderForm.address.valid = true;
+            updatedOrderForm.address.touched = true;
+            updatedOrderForm.City.valid = true;
+            updatedOrderForm.City.touched = true;
+            updatedOrderForm.Zip.valid = true;
+            updatedOrderForm.Zip.touched = true;
+            
+            // updatedFormElement.City.valid = true, 
+            // updatedFormElement.Zip.valid = true
+    
+        }
         updatedFormElement.touched = true;
         updatedOrderForm[inputIdentifier] = updatedFormElement;
         let formIsValid = true;
@@ -178,11 +202,23 @@ export class Form extends Component {
             formIsValid = updatedOrderForm[inputIdentifier].valid && formIsValid
         }
         this.setState({controls: updatedOrderForm, formIsValid: formIsValid})
+        console.log(this.state)
       
     }
-    orderBurgerHandler = ()=>{
-        alert('ORDER')
+    returnFormObj = () => {
+        // e.preventDefault();
+        let formValueGroups = document.querySelectorAll('.Form__row__input-group');
+        const formKeys = Object.keys(this.state.controls)
+        const formValues = [];
+ 
+        formValueGroups.forEach((cur, idx)=>{
+           formValues.push(cur.childNodes[1].value)
+        });
+        let order = Object.assign(...formKeys.map((cur, idx)=>({[cur]: formValues[idx]})));
+        console.log(order)
+        return order
     }
+  
     render() {
         let formElements = [];
         // setting an index that increase
@@ -196,7 +232,7 @@ export class Form extends Component {
         }
         let formElementsJSX = formElements.map((cur, idx) => {
             return (
-                <div key={cur.id} className={cur.config.layout}>
+                <div key={cur.id} className={`Form__row__input-group ${cur.config.layout}`}>
                     <Input
                         isValid={cur.config.valid}
                         inputType={cur.config.inputType}
@@ -257,7 +293,10 @@ export class Form extends Component {
                 )
             }
         }
-    
+ 
+ 
+
+  
         return (
             <ContentCon>
                 <form>
@@ -273,12 +312,13 @@ export class Form extends Component {
                             {returnOneInput()}
                         </div>
                         <div className={`Form__row ${!this.state.controls.deliveryType.elementConfig.delivery ? 'u-hide' : ' '}`}>
-                            {returnThreeInputs()}
+                            {this.state.controls.deliveryType.elementConfig.delivery ? returnThreeInputs() : null }
                         </div>
                         <div className="Form__actions">
-                            <h4>LOOKS GOOD</h4>
-                            <NavLink to="/build"><ButtonMedium text="EDIT" styles='Form__actions__btn edit' /></NavLink>
-                           <ButtonMedium text="ORDER" styles='Form__actions__btn checkout' click={this.orderBurgerHandler}/>
+                            <h5>{this.state.formIsValid ? 'Looks Good, Please Confirm' : 'Please Enter Your Information Above'}</h5>
+                            <NavLink to="/build"><ButtonMedium text="EDIT ORDER" styles='Form__actions__btn edit' /></NavLink>
+                            <ButtonMedium text="CONFIRM ORDER" styles='Form__actions__btn checkout' click={(e)=>this.props.formInfo(e, this.returnFormObj() )} disabled={!this.state.formIsValid}/>
+                            
                         </div>
                     </div>
            

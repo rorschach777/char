@@ -221,6 +221,43 @@ class BugerBuilder extends Component {
         this.disableLessButtons();
         console.log(this.state.ingredients);
     }
+    orderBurger=()=>{
+
+        // Z-index & Animation functionality of Burger UI
+        let burgerIngs = document.querySelectorAll('.Ingredient-Con');
+        let int = 2;
+        for (let i = 0; i < burgerIngs.length; i++){
+            let el = burgerIngs[i]
+            console.log(burgerIngs)
+            el.style.minHeight = '1rem'
+            if (burgerIngs[i].classList.contains('Ingredient--sm')){
+                el.style.zIndex= 999
+            }
+        }
+        let top = document.querySelector('#bread-top')
+        let bottom = document.querySelector('#bread-bottom')
+        top.style.zIndex = 1005
+        // Setting the Order object. 
+        // ings, toppings, price
+
+        let totalIngredients = {
+            ...this.state.ingredients
+        }
+        let totalToppings = {
+            ...this.state.toppings
+        }
+        let totalPrice = this.state.totalPrice
+
+        let burger = {
+            totalIngredients,
+            totalToppings, 
+            totalPrice
+        }
+
+        return burger
+
+   
+    }
     componentDidUpdate(){
         
     }
@@ -240,6 +277,7 @@ class BugerBuilder extends Component {
                     addIngs={(e, el, type)=>this.addIngredientHandler(e, el, type)}
                     removeIngs={(e, el, type)=>this.removeIngredientHandler(e, el, type)}
                     totalPrice={this.state.totalPrice}
+                    orderBurger={(e)=>this.props.burgerInfo(e, this.orderBurger())}
                     />
                 </ContentCon>
             </Aux>

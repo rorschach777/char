@@ -37,23 +37,23 @@ class Builder extends Component {
         }));
 
     }
-    orderBurger=()=>{
-        let burgerIngs = document.querySelectorAll('.Ingredient-Con');
-        let int = 2;
-        for (let i = 0; i < burgerIngs.length; i++){
-            let el = burgerIngs[i]
-            console.log(burgerIngs)
-            el.style.minHeight = '1rem'
-            if (burgerIngs[i].classList.contains('Ingredient--sm')){
-                el.style.zIndex= 999
-            }
+    // orderBurger=()=>{
+    //     let burgerIngs = document.querySelectorAll('.Ingredient-Con');
+    //     let int = 2;
+    //     for (let i = 0; i < burgerIngs.length; i++){
+    //         let el = burgerIngs[i]
+    //         console.log(burgerIngs)
+    //         el.style.minHeight = '1rem'
+    //         if (burgerIngs[i].classList.contains('Ingredient--sm')){
+    //             el.style.zIndex= 999
+    //         }
       
-        }
-        let top = document.querySelector('#bread-top')
-        let bottom = document.querySelector('#bread-bottom')
-        top.style.zIndex = 1005
+    //     }
+    //     let top = document.querySelector('#bread-top')
+    //     let bottom = document.querySelector('#bread-bottom')
+    //     top.style.zIndex = 1005
    
-    }
+    // }
     render(){
     const ingsKeys = Object.keys(this.props.ingredients);
     const ingsValues = this.props.ingredients;
@@ -139,7 +139,7 @@ class Builder extends Component {
                             </Summary>
                             <OrderBurger 
                             totalPrice={this.props.totalPrice.toFixed(2)} 
-                            click={this.orderBurger}
+                            click={this.props.orderBurger}
                             />
                         </div>
                         <div className="half-col">
@@ -149,6 +149,7 @@ class Builder extends Component {
                                 toppingsQty={toppingsValues}
                                 ingredients={ingsKeys}
                                 ingredientQty={ingsValues}
+                          
                             />
                         </div>
                     </div>
@@ -188,7 +189,7 @@ class Builder extends Component {
                        </div>
                        <div className="BurgerBuilder-mobile--bottom ">
                            <ButtonMedium styles="edit mobile-btn" click={this.burgerPreviewHandler} text="Edit"/>
-                           <ButtonMedium  click={this.orderBurger} styles="order mobile-btn" text="Order Now"/>
+                           <ButtonMedium  click={this.props.orderBurger} styles="order mobile-btn" text="Order Now"/>
                         </div>
                    </div>
                    

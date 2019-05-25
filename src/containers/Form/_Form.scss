@@ -26,7 +26,7 @@
         @include blackOverlay();
         @include center-block;
         margin-bottom: 5rem;
-        width: 40rem;
+        width: 45rem;
         border-radius: .5rem;
         height: auto;
         overflow: hidden;
@@ -46,7 +46,7 @@
        
          
         }
-        h4{
+        h5{
             color: $color-white !important;
         }
     }

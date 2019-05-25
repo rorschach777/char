@@ -17,7 +17,7 @@
         border: none;
         &:hover{
             cursor: pointer;
-            transform: translateY(-.5rem);
+            // transform: translateY(-.5rem);
         }
         &:disabled {
             background-color: $color-gray-7;
