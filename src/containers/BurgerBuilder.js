@@ -10,19 +10,21 @@ import Controls from '../components/Builder/Controls/Controls'
 import { thisTypeAnnotation } from '@babel/types';
 import { transform } from 'popmotion';
 
-
+import axios from 'axios'; 
 class BugerBuilder extends Component {
     state = {
-        ingredients: {
-            cheddar: 0,
-            american: 0,
-            swiss: 0,
-            egg: 0,
-            bacon: 0,
-            turkey: 0,
-            angus: 0,
-            buffalo: 0,
-        },
+        ingredients: {},
+        // ingredients: {
+        //     cheddar: 0,
+        //     american: 0,
+        //     swiss: 0,
+        //     egg: 0,
+        //     bacon: 0,
+        //     turkey: 0,
+        //     angus: 0,
+        //     buffalo: 0,
+        // },
+ 
         ingredientPrices: {
             cheddar: 1.00,
             american: 1.00,
@@ -129,10 +131,7 @@ class BugerBuilder extends Component {
                     let decButton = target.closest(".ingredient__actions").childNodes[1];
                     decButton.disabled = true;
                 }
-         
-
                 this.setState(
-                    
                     prevState => ({
                         [type]: {
                         ...prevState[type],
@@ -142,9 +141,7 @@ class BugerBuilder extends Component {
                 );
             }
             else {
-             
                 this.setState(
-                    
                     prevState => ({
                         [type]: {
                         ...prevState[type],
@@ -214,13 +211,6 @@ class BugerBuilder extends Component {
         }
         return;
     }
-
-    componentDidMount(){
-        this.sumIngredients();
-        this.burgerTotal();
-        this.disableLessButtons();
-        console.log(this.state.ingredients);
-    }
     orderBurger=()=>{
 
         // Z-index & Animation functionality of Burger UI
@@ -258,6 +248,23 @@ class BugerBuilder extends Component {
 
    
     }
+    componentWillMount(){
+    
+    }
+    componentDidMount(){
+        axios.get('https://char-93c7a.firebaseio.com/ingredients.json').then(response=>{
+            this.setState({ingredients: response.data})
+        }).then(response=>{
+            this.sumIngredients();
+            this.burgerTotal();
+            this.disableLessButtons();
+        })
+      
+    
+      
+        console.log(this.state.ingredients);
+    }
+   
     componentDidUpdate(){
         
     }
@@ -272,7 +279,8 @@ class BugerBuilder extends Component {
                     ingPrices={this.state.ingredientPrices}
                     toppings={this.state.toppings}
                     topPrices={this.state.toppingsPrices}
-                    ingTotal={this.burgerIngQtyTotal()}
+                    // ingTotal={this.burgerIngQtyTotal()}
+                    ingTotal={this.burgerIngQtyTotal}
                     switchIngs={(ing)=>this.switchIngredientName(ing)}
                     addIngs={(e, el, type)=>this.addIngredientHandler(e, el, type)}
                     removeIngs={(e, el, type)=>this.removeIngredientHandler(e, el, type)}
