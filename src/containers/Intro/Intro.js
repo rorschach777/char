@@ -11,17 +11,15 @@ import './_Intro.scss'
 
 
 class Intro extends Component {
-    saySomething=()=>{
-        alert('hi')
-    }
+
     render() {
     
         return (
             <Aux>
                 <ContentCon styles={'Intro'}>
-                    <Logo/>
+                    <Logo styles={'Intro__Logo'}/>
                     <NavLink to='/build'>
-                        <ButtonLarge text="Let's Eat" click={this.saySomething()} styles={'color-1'} />
+                        <ButtonLarge text="Let's Eat" styles={'color-1'} />
                     </NavLink>
                 </ContentCon>
             </Aux>

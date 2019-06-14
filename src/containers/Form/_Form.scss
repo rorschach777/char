@@ -1,10 +1,11 @@
-@import '../../assets/styles/utilities';
-
 .Form {
     margin-top: 3.5rem;
     @include boxPad(1.5rem, 1.5rem);
     background-color: $color-7;
     border-radius: .5rem;
+    // min-height: 50rem;
+
+
     h3{
         color: $color-white;
         padding-left: 1.5rem;
@@ -13,8 +14,7 @@
     }
     &__row{
         width: 100%;
-    
-        // background-color: $color-white;
+
         @include boxPad(1.5rem, 0);
         margin: 1.5rem auto;
         height: auto; 
@@ -23,7 +23,7 @@
     &__actions{
         text-align: center;
         @include boxPad(2.5rem);
-        @include blackOverlay();
+        @include black-overlay();
         @include center-block;
         margin-bottom: 5rem;
         width: 45rem;
@@ -48,6 +48,30 @@
         }
         h5{
             color: $color-white !important;
+        }
+    }
+    &__success{
+        @include boxPad(20rem, 1.5rem);
+        text-align: center;
+        text-transform: uppercase;
+        max-width: 100%;
+        
+        h1 {
+            @include center-block();
+            color: $color-1;
+            font-size: 7.5rem;
+            
+            font-weight: 100;
+            max-width: 100%;
+
+        }
+        h4{
+            color: $color-white;
+            margin: 0px;
+        }
+        button{
+            background-color: $color-1;
+            margin-top: 1.5rem;
         }
     }
 }

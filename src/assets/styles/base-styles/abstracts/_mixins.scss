@@ -9,7 +9,7 @@
 @mixin gradient($color1: #333, $color2: #ddd, $angle: 90){
   background-image: linear-gradient($angle, $color1, $color2);
 }
-@mixin blackOverlay(){
+@mixin black-overlay(){
   background-color: rgba(0,0,0,.4);
 }
 @mixin alpha($color1: rgb(255,255,255), $alpha: 1){

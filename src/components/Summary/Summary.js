@@ -2,7 +2,7 @@ import React from 'react';
 import './_Summary.scss';
 import './OrderBurger/OrderBurger';
 import OrderBurger from './OrderBurger/OrderBurger';
-import TotalIngredients from '../Summary/TotalIngredients/TotalIngredients'
+import TotalIngredients from './TotalIngredients/TotalIngredients'
 const Summary = (props) => {
     const ingList = () => {
         const ings = Object.keys(props.ingredients);

@@ -1,0 +1,10 @@
+.Footer{
+
+    @include boxPad(2.5rem 2.5rem);
+    min-height: 10rem;
+    background-color: $color-7;
+    color: $color-white;
+    bottom: 0px;
+    width: 100%;
+
+}

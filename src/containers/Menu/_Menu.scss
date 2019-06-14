@@ -1,0 +1,21 @@
+.Menu{
+    padding: 1.5rem;
+    border-radius: .5rem;
+    background-color:$color-7;
+    margin-top: $content-margin;
+    color: $color-white;
+    h3{
+        margin-bottom: 1.5rem;
+    }
+   
+}
+.Dialog-logo{
+    @include center-block();
+    @include boxPad(1.5rem);
+    border-bottom: 1px solid $color-gray-6;
+    img {
+        max-width: 20rem;
+    }
+
+    
+}

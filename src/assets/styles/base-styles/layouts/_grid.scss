@@ -1,40 +1,185 @@
-.col-12-gutterless{
+.col-lg-12-gutterless{
     @include grid-column(12, $grid-gutterless);
 }
-.col-11-gutterless{
+.col-lg-11-gutterless{
     @include grid-column(11, $grid-gutterless);
 }
-.col-10-gutterless{
+.col-lg-10-gutterless{
     @include grid-column(10, $grid-gutterless);
 }
-.col-9-gutterless{
+.col-lg-9-gutterless{
     @include grid-column(9, $grid-gutterless);
 }
-.col-8-gutterless{
+.col-lg-8-gutterless{
     @include grid-column(8, $grid-gutterless);
 }
-.col-7-gutterless{
+.col-lg-7-gutterless{
     @include grid-column(7, $grid-gutterless);
 }
-.col-6-gutterless{
+.col-lg-6-gutterless{
     @include grid-column(6, $grid-gutterless);
 }
-.col-5-gutterless{
+.col-lg-5-gutterless{
     @include grid-column(5, $grid-gutterless);
 }
-.col-4-gutterless{
+.col-lg-4-gutterless{
     @include grid-column(4, $grid-gutterless);
 }
-.col-3-gutterless{
+.col-lg-3-gutterless{
     @include grid-column(3, $grid-gutterless);
 }
-.col-2-gutterless{
+.col-lg-2-gutterless{
     @include grid-column(2, $grid-gutterless);
 }
-.col-1-gutterless{
+.col-lg-1-gutterless{
     @include grid-column(1, $grid-gutterless);
 }
 
+
+
+.col-md-12-gutterless{
+    @media only screen and (max-width: $tablet){ 
+        @include grid-column(12, $grid-gutterless);
+
+    }
+}
+.col-md-11-gutterless{
+    @media only screen and (max-width: $tablet){ 
+        @include grid-column(11, $grid-gutterless);
+
+    }
+}
+.col-md-10-gutterless{
+    @media only screen and (max-width: $tablet){ 
+        @include grid-column(10, $grid-gutterless);
+
+    }
+}
+.col-md-9-gutterless{
+    @media only screen and (max-width: $tablet){ 
+        @include grid-column(9, $grid-gutterless);
+
+    }
+}
+.col-md-8-gutterless{
+    @media only screen and (max-width: $tablet){ 
+        @include grid-column(8, $grid-gutterless);
+
+    }
+}
+.col-md-7-gutterless{
+    @media only screen and (max-width: $tablet){ 
+        @include grid-column(7, $grid-gutterless);
+
+    }
+}
+.col-md-6-gutterless{
+    @media only screen and (max-width: $tablet){ 
+        @include grid-column(6, $grid-gutterless);
+
+    }
+}
+.col-md-5-gutterless{
+    @media only screen and (max-width: $tablet){ 
+        @include grid-column(5, $grid-gutterless);
+
+    }
+}
+.col-md-4-gutterless{
+    @media only screen and (max-width: $tablet){ 
+        @include grid-column(4, $grid-gutterless);
+
+    }
+}
+.col-md-3-gutterless{
+    @media only screen and (max-width: $tablet){ 
+        @include grid-column(3, $grid-gutterless);
+
+    }
+}
+.col-md-2-gutterless{
+    @media only screen and (max-width: $tablet){ 
+        @include grid-column(2, $grid-gutterless);
+
+    }
+}
+.col-md-1-gutterless{
+    @media only screen and (max-width: $tablet){ 
+        @include grid-column(1, $grid-gutterless);
+
+    }
+}
+
+
+.col-sm-12-gutterless{
+    @media only screen and (max-width: $phone){ 
+        @include grid-column(12, $grid-gutterless);
+
+    }
+}
+.col-sm-11-gutterless{
+    @media only screen and (max-width: $phone){ 
+        @include grid-column(11, $grid-gutterless);
+
+    }
+}
+.col-sm-10-gutterless{
+    @media only screen and (max-width: $phone){ 
+        @include grid-column(10, $grid-gutterless);
+
+    }
+}
+.col-sm-9-gutterless{
+    @include grid-column(9, $grid-gutterless);
+}
+.col-sm-8-gutterless{
+    @media only screen and (max-width: $phone){ 
+        @include grid-column(8, $grid-gutterless);
+
+    }
+}
+.col-sm-7-gutterless{
+    @media only screen and (max-width: $phone){ 
+        @include grid-column(7, $grid-gutterless);
+
+    }
+}
+.col-sm-6-gutterless{
+    @media only screen and (max-width: $phone){ 
+        @include grid-column(6, $grid-gutterless);
+
+    }
+}
+.col-sm-5-gutterless{
+    @media only screen and (max-width: $phone){ 
+        @include grid-column(5, $grid-gutterless);
+
+    }
+}
+.col-sm-4-gutterless{
+    @media only screen and (max-width: $phone){ 
+        @include grid-column(4, $grid-gutterless);
+
+    }
+}
+.col-sm-3-gutterless{
+    @media only screen and (max-width: $phone){ 
+        @include grid-column(3, $grid-gutterless);
+
+    }
+}
+.col-sm-2-gutterless{
+    @media only screen and (max-width: $phone){ 
+        @include grid-column(2, $grid-gutterless);
+
+    }
+}
+.col-sm-1-gutterless{
+    @media only screen and (max-width: $phone){ 
+        @include grid-column(1, $grid-gutterless);
+
+    }
+}
 
 
 .col-lg-12{
@@ -225,5 +370,22 @@
 .col-sm-1{
     @media only screen and (max-width: $phone){ 
         @include grid-column(1)
+    }
+}
+
+
+.col-sm-hide{
+    @media only screen and (max-width: $phone){ 
+        display: none !important;
+    }
+}
+.col-md-hide{
+    @media only screen and (min-width: calc((#{$phone} +1))) and (max-width: $tablet){ 
+        display: none !important;
+    }
+}
+.col-lg-hide{
+    @media only screen and (min-width: calc(#{$tablet}+1 )) { 
+        display: none !important;
     }
 }

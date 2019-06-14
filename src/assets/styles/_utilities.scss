@@ -1,4 +1,5 @@
-// This is variables / mixins / breakpoints / css grid tool for other components to leverage. 
+// This file is called in webpack, and is injected, and made available to every SCSS file in the project. 
+// This is done so you do not have to import it into every component file, as any other dev would not know to do this. 
 @import './base-styles/abstracts/_abstracts';
 @import './project-styles/abstracts/_abstracts';
 @import './base-styles/vendors/_neat';

@@ -1,0 +1,117 @@
+.Cart__item {
+    @include boxPad;
+
+    &__top{
+        @include boxPad(1.5rem, 1.5rem);
+        background-color: rgba(255,255,255,.2);
+        position: relative;
+        border-radius: .5rem;
+        margin-top: 1.5rem;
+        @media only screen and (max-width: $phone){ 
+            @include boxPad(1rem, 1rem);
+        }
+        div{
+            display: inline-block;
+        }
+        &__name {
+            div {
+                width: 35px;
+                height: 35px;
+      
+                border-radius: 25rem;
+                position: absolute;
+                top: .8rem;
+                left: 1.5rem;
+                margin-right: 1.5rem;
+            }
+            span {
+                margin-left: 3.5rem;
+                @media only screen and (max-width: $phone){ 
+                    position: relative;
+                    font-size: 2.3rem !important;
+                    top: .5rem;
+                }
+            }
+            @media only screen and (max-width: $phone){ 
+                margin-bottom: 2.5rem;
+            }
+        }
+        &__img {
+            background-color: #fff;
+            width: 45px;
+            height: 45px;
+            border-radius: 25rem;
+        }
+        span {
+            font-size: 1.6rem;
+        }
+        &__actions {
+            cursor: pointer;
+            .active {
+                color: $color-1;
+            }
+            img {
+                margin: 0 1rem;
+                display: inline-block;
+                width: 16px;
+                position: relative;
+    
+                &:hover {
+                    color: $color-1 !important;
+                    cursor: pointer;
+                }
+            }
+    
+            &__delete {
+                img {
+                    top: .2rem;
+                }
+            }
+        }
+
+    }
+    &__bottom{
+        @include boxPad(1.5rem, 0);
+        @include black-overlay;
+        position: relative;
+        top: -.2rem;
+  
+        background-color: #333;
+        border-bottom-left-radius: .5rem;
+        border-bottom-right-radius: .5rem; 
+        &:last-child{
+            // margin-bottom: 1.5rem;
+        }
+        h5{
+            margin-bottom: 1.5rem;
+        }
+        &__content{
+     
+            &__price{
+                @include black-overlay;
+                @include boxPad(1.5rem);
+                border-radius: .5rem;
+                -webkit-border-radius: .5rem;
+                text-align: center;
+                span{
+                    color: $color-1;
+                    font-size: inherit;
+                }
+
+            }
+        }
+    }
+    &:last-child{
+        margin-bottom: 3.5rem !important;
+    }
+}
+.Cart__item__name__featured-img {
+   @include burgerBackgrounds();
+   background-size: cover;
+   background-position-x: -.5rem;
+   &--build{
+       background-image: url('../../../assets/images/char-icon.png');
+       background-position-x: 0rem;
+
+   }
+}

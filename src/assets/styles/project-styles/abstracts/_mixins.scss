@@ -1,0 +1,26 @@
+@mixin burgerBackgrounds {
+    &--1{
+        background-image: url('../../../assets/images/menu/burger-1.jpg');
+    }
+    &--2{
+        background-image: url('../../../assets/images/menu/burger-2.jpg');
+    }
+    &--3{
+        background-image: url('../../../assets/images/menu/burger-3.jpg');
+    }
+    &--4{
+        background-image: url('../../../assets/images/menu/burger-4.jpg');
+    }
+    &--5{
+        background-image: url('../../../assets/images/menu/burger-5.jpg');
+    }
+    &--6{
+        background-image: url('../../../assets/images/menu/burger-6.jpg');
+    }
+    &--7{
+        background-image: url('../../../assets/images/menu/burger-7.jpg');
+    }
+    &--8{
+        background-image: url('../../../assets/images/menu/burger-8.jpg');
+    }
+}

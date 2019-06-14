@@ -5,7 +5,7 @@ import Input from '../../components/_MsLib/UI/Form/Input/Input';
 import Select from '../../components/_MsLib/UI/Form/Select/Select';
 import ButtonMedium from '../../components/_MsLib/UI/Buttons/ButtonMedium/ButtonMedium';
 import {NavLink} from 'react-router-dom';
-
+import Aux from '../../components/_MsLib/Hoc/Aux'
 
 export class Form extends Component {
     constructor(props){
@@ -127,7 +127,7 @@ export class Form extends Component {
         
             },
             formIsValid: false, 
-            checkoutMessage: 'Please Enter Your Info Above'
+
         }
     }
     sayHi=(e)=> {
@@ -294,36 +294,42 @@ export class Form extends Component {
             }
         }
  
- 
-
-  
+        let formContent = 
+        <Aux>
+        <h3>Order Form</h3>
+            <div className="Form__row">
+                {returnTwoInputs()}
+            </div>
+            <div className="Form__row">
+                {returnTwoInputs()}
+            </div>
+            <div className="Form__row">
+                {returnOneInput()}
+            </div>
+            <div className={`Form__row ${!this.state.controls.deliveryType.elementConfig.delivery ? 'u-hide' : ' '}`}>
+                {this.state.controls.deliveryType.elementConfig.delivery ? returnThreeInputs() : null }
+            </div>
+            <div className="Form__actions">
+                <h5>{this.state.formIsValid ? 'Looks Good, Please Confirm' : 'Please Enter Your Information Above'}</h5>
+                <NavLink to="/cart"><ButtonMedium text="EDIT ORDER" styles='Form__actions__btn edit' /></NavLink>
+                <ButtonMedium text="CONFIRM ORDER" styles='Form__actions__btn checkout' click={(e)=>this.props.formInfo(e, this.returnFormObj() )} disabled={!this.state.formIsValid}/>
+            </div>
+        </Aux>
+        if (this.props.formSubmitted){
+            formContent = 
+            <div className="Form__success">
+                <h1 className="success">Success!</h1>
+                <h4>We received your order</h4>
+                <NavLink to="/"><ButtonMedium text="Go Home"/></NavLink>
+            </div>
+        }
         return (
             <ContentCon>
                 <form>
                     <div className="Form">
-                        <h3>Order Form</h3>
-                        <div className="Form__row">
-                            {returnTwoInputs()}
-                        </div>
-                        <div className="Form__row">
-                            {returnTwoInputs()}
-                        </div>
-                        <div className="Form__row">
-                            {returnOneInput()}
-                        </div>
-                        <div className={`Form__row ${!this.state.controls.deliveryType.elementConfig.delivery ? 'u-hide' : ' '}`}>
-                            {this.state.controls.deliveryType.elementConfig.delivery ? returnThreeInputs() : null }
-                        </div>
-                        <div className="Form__actions">
-                            <h5>{this.state.formIsValid ? 'Looks Good, Please Confirm' : 'Please Enter Your Information Above'}</h5>
-                            <NavLink to="/build"><ButtonMedium text="EDIT ORDER" styles='Form__actions__btn edit' /></NavLink>
-                            <ButtonMedium text="CONFIRM ORDER" styles='Form__actions__btn checkout' click={(e)=>this.props.formInfo(e, this.returnFormObj() )} disabled={!this.state.formIsValid}/>
-                            
-                        </div>
+                        {formContent}
                     </div>
-           
                 </form>
-             
             </ContentCon>
       
         );

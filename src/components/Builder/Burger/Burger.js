@@ -1,7 +1,7 @@
 import React from 'react';
 import Ingredient from './Ingredients/Ingredient'
 import './_Burger.scss';
-import BreadTop from '../../../assets/images/ingredient-bread-top.png';
+
 
 
 const Burger = (props) => {
@@ -40,11 +40,10 @@ const Burger = (props) => {
     }
     return (
         <div className="Burger">
-        <Ingredient id="bread-top" type="bread--top"/>
-      
-        {   burgerContents(ingredients, toppings)  }
-        <Ingredient id="bread-bottom" type="bread--bottom"/>
-    </div>
+            <Ingredient id="bread-top" type="bread--top" />
+            {burgerContents(ingredients, toppings)}
+            <Ingredient id="bread-bottom" type="bread--bottom" />
+        </div>
     );
 };
 

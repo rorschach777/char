@@ -1,4 +1,7 @@
 .Intro {
-
     margin-top: 30vh;
+    &__Logo{
+        @include center-block(3.5rem);
+        max-width: 45rem;
+    }
 }

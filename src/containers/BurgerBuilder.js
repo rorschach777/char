@@ -7,13 +7,15 @@ import Builder from '../components/Builder/Builder';
 import Burger from '../components/Builder/Burger/Burger';
 import Controls from '../components/Builder/Controls/Controls'
 
-import { thisTypeAnnotation } from '@babel/types';
-import { transform } from 'popmotion';
+
+
 
 import axios from 'axios'; 
 class BugerBuilder extends Component {
     state = {
-        ingredients: {},
+        ingredients: {
+            
+        },
         // ingredients: {
         //     cheddar: 0,
         //     american: 0,
@@ -36,15 +38,18 @@ class BugerBuilder extends Component {
             buffalo: 3.75,
         }, 
         toppings: {
-            ketchup: 0,
-            avacado: 0,
-            mayo: 0,
-            onions: 0,
-            pickles: 0,
-            lettuce: 0,
-            tomatoes: 0,
-  
+
         },
+        // toppings: {
+        //     ketchup: 0,
+        //     avacado: 0,
+        //     mayo: 0,
+        //     onions: 0,
+        //     pickles: 0,
+        //     lettuce: 0,
+        //     tomatoes: 0,
+  
+        // },
         toppingsPrices: {
             ketchup: 0,
             avacado: 1.00,
@@ -54,15 +59,19 @@ class BugerBuilder extends Component {
             lettuce: .50,
             tomatoes: .75,
         },
-        totalPrice: 0
+        totalPrice: 0,
+        totalIngredients: 0
       
     }
     burgerIngQtyTotal=()=>{
+   
         const ings = Object.values(this.state.ingredients);
         const total = ings.reduce((prev, cur)=>{
             return prev + cur
         })
-        return total;
+        this.setState(prevState=>({
+            totalIngredients: total
+        }))
     }
     burgerTotal=()=>{
         const ingQty = Object.values(this.state.ingredients);
@@ -84,7 +93,9 @@ class BugerBuilder extends Component {
         })
         this.setState((prevState, props)=>({
             totalPrice: totalPrice
-        }));
+        }),
+        this.burgerIngQtyTotal
+        );
     }
     sumIngredients=()=>{
         let ingredients = Object.values(this.state.ingredients);
@@ -117,6 +128,7 @@ class BugerBuilder extends Component {
         else {
             return;
         }
+       
     }
     removeIngredientHandler = (e, el, type) =>{
         let target = document.getElementById(e.target.id);
@@ -211,6 +223,7 @@ class BugerBuilder extends Component {
         }
         return;
     }
+  
     orderBurger=()=>{
 
         // Z-index & Animation functionality of Burger UI
@@ -239,9 +252,12 @@ class BugerBuilder extends Component {
         let totalPrice = this.state.totalPrice
 
         let burger = {
+            id: this.props.burgerId(),
+            title: 'Char Custom Burger',
             totalIngredients,
             totalToppings, 
-            totalPrice
+            totalPrice,
+            type: 'build'
         }
 
         return burger
@@ -252,17 +268,33 @@ class BugerBuilder extends Component {
     
     }
     componentDidMount(){
+        // axios.get('https://char-93c7a.firebaseio.com/ingredients.json').then(response=>{
+        //     this.setState({ingredients: response.data})
+        // });
         axios.get('https://char-93c7a.firebaseio.com/ingredients.json').then(response=>{
             this.setState({ingredients: response.data})
         }).then(response=>{
-            this.sumIngredients();
-            this.burgerTotal();
-            this.disableLessButtons();
-        })
-      
-    
-      
-        console.log(this.state.ingredients);
+            axios.get('https://char-93c7a.firebaseio.com/toppings.json').then(response=>{
+                this.setState({toppings: response.data})
+            }).then(response=>{
+                this.sumIngredients();
+                this.burgerTotal();
+                this.disableLessButtons();
+                this.burgerIngQtyTotal();
+            })
+           
+        
+        });
+
+        // axios.get('https://char-93c7a.firebaseio.com/toppings.json').then(response=>{
+        //     this.setState({toppings: response.data})
+        // }).then(response=>{
+        //     this.sumIngredients();
+        //     this.burgerTotal();
+        //     this.disableLessButtons();
+        //     this.burgerIngQtyTotal();
+        // })
+
     }
    
     componentDidUpdate(){
@@ -280,12 +312,14 @@ class BugerBuilder extends Component {
                     toppings={this.state.toppings}
                     topPrices={this.state.toppingsPrices}
                     // ingTotal={this.burgerIngQtyTotal()}
-                    ingTotal={this.burgerIngQtyTotal}
+                    ingTotal={this.state.totalIngredients}
                     switchIngs={(ing)=>this.switchIngredientName(ing)}
                     addIngs={(e, el, type)=>this.addIngredientHandler(e, el, type)}
                     removeIngs={(e, el, type)=>this.removeIngredientHandler(e, el, type)}
                     totalPrice={this.state.totalPrice}
-                    orderBurger={(e)=>this.props.burgerInfo(e, this.orderBurger())}
+                    // orderBurger={(e)=>this.props.burgerInfo(e, this.orderBurger())}
+                    orderBurger={this.orderBurger}
+                    pushBurger={this.props.pushBurger}
                     />
                 </ContentCon>
             </Aux>

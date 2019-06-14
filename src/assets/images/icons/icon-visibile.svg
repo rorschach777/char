@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="22px" height="15px" viewBox="0 0 22 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51.2 (57519) - http://www.bohemiancoding.com/sketch -->
+    <title>Icon / Visibility / Filled</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M12,10 C13.38,10 14.5,11.12 14.5,12.5 C14.5,13.88 13.38,15 12,15 C10.62,15 9.5,13.88 9.5,12.5 C9.5,11.12 10.62,10 12,10 Z M12,8 C9.52,8 7.5,10.02 7.5,12.5 C7.5,14.98 9.52,17 12,17 C14.48,17 16.5,14.98 16.5,12.5 C16.5,10.02 14.48,8 12,8 Z M12,7 C15.79,7 19.17,9.13 20.82,12.5 C19.17,15.87 15.79,18 12,18 C8.21,18 4.83,15.87 3.18,12.5 C4.83,9.13 8.21,7 12,7 Z M12,5 C7,5 2.73,8.11 1,12.5 C2.73,16.89 7,20 12,20 C17,20 21.27,16.89 23,12.5 C21.27,8.11 17,5 12,5 Z" id="path-1"></path>
+    </defs>
+    <g id="Cart" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Apple-TV-Copy" transform="translate(-1341.000000, -289.000000)">
+            <g id="Group-4" transform="translate(374.000000, 262.000000)">
+                <g id="Icon-/-Visibility-/-Outlined" transform="translate(966.000000, 22.000000)">
+                    <mask id="mask-2" fill="white">
+                        <use xlink:href="#path-1"></use>
+                    </mask>
+                    <g id="Mask" fill-rule="nonzero"></g>
+                    <g id="✱-/-Color-/-Icons-/-White-/-Active" mask="url(#mask-2)" fill="#FFFFFF" fill-rule="evenodd">
+                        <rect id="Rectangle-13" x="0" y="0" width="24" height="24"></rect>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

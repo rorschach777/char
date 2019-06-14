@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import './_CheckControl.scss';
 import Aux from '../../../_MsLib/Hoc/Aux';
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 class CheckControl extends Component {
     state = {
         added: true, 
