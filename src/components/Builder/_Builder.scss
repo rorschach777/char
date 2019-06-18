@@ -72,7 +72,7 @@
 
         &__mobile-controls{
             @include boxPad(1.5rem);
-            margin: 1.5rem 0;
+            margin: 2.5rem 0;
             width: 100%;
             border-top: $color-gray-5 .1rem solid;
             
@@ -110,14 +110,24 @@
         width: 100%;
         div:nth-child(1){
             @include grid-column(4, $grid-gutterless);
+            @media only screen and (max-width: $phone){
+                @include grid-column(3, $grid-gutterless);
+             }
         }
         div:nth-child(2){
             @include grid-column(3, $grid-gutterless);
+            @media only screen and (max-width: $phone){
+                @include grid-column(3, $grid-gutterless);
+             }
         }
         div:nth-child(3){
             @include grid-column(5, $grid-gutterless);
             box-sizing: border-box;
             padding: 8px;
+  
+            @media only screen and (max-width: $phone){
+                @include grid-column(6, $grid-gutterless);
+             }
         }
     }
     div{
@@ -216,7 +226,7 @@
     &--bottom{
         @include grid-column(12, $grid-gutterless);
         @include border-top($color-gray-4);
-        padding: 2.5rem  0;
+        padding: 4.5rem  0;
         bottom: 0;
         width: 100%;
         margin-top: 1rem;

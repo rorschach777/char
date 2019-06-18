@@ -22,11 +22,12 @@
     }
     &__actions{
         text-align: center;
-        @include boxPad(2.5rem);
+        @include boxPad(2.5rem );
         @include black-overlay();
         @include center-block;
         margin-bottom: 5rem;
         width: 45rem;
+        max-width: 100%;
         border-radius: .5rem;
         height: auto;
         overflow: hidden;

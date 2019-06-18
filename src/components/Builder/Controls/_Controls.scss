@@ -1,10 +1,16 @@
 
 .ingredient__actions {
-    
+    .ingredient__actions__base{
+        width: 48%;
+        @media only screen and (max-width: $phone){ 
+            width: 35%;
+        }
+    }
+
+
     button{
         display: inline-block;
         text-align: center;
-       
         padding: .3rem;
         color: $color-white;
         border-radius: .5rem;
@@ -22,12 +28,12 @@
     };
     &--more{
         background-color: $color-5;
-        width: 48%;
+ 
          margin-right:.5rem;
     }
     &--less{
         background-color: $color-4;
-        width: 48%;
+   
     }
     
 }

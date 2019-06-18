@@ -8,7 +8,7 @@ import CheckControl from './Controls/CheckControl/CheckControl';
 import OrderBurger from '../Summary/OrderBurger/OrderBurger';
 import TotalIngredients from '../Summary/TotalIngredients/TotalIngredients'
 import Burger from './Burger/Burger';
-
+import CharDialog from '../UI/CharDialog/CharDialog'
 
 import posed from 'react-pose';
 import Summary from '../Summary/Summary';
@@ -26,8 +26,10 @@ const BuilderSection = posed.div({
 })
 class Builder extends Component {
     state = {
-        burgerPreview: false
+        burgerPreview: false,
+
     }
+
     burgerPreviewHandler = () => {
         this.setState((prevState) => ({
             burgerPreview: !prevState.burgerPreview
@@ -51,6 +53,7 @@ class Builder extends Component {
                                 {this.props.ingPrices[cur].toFixed(2)}
                             </div>
                             <div className="ingredient__actions">
+                                <TotalIngredients styles={'phone'} ingTotal={ingsValues[cur]} headlineStyles='u-hide'></TotalIngredients>
                                 <Controls current={cur} type="ingredients" disabled={true} add={this.props.addIngs} remove={this.props.removeIngs} />
                             </div>
                         </div>
@@ -79,6 +82,18 @@ class Builder extends Component {
         const topControls = topMap.reverse();
         return (
             <div className="Builder">
+                <CharDialog
+                    show={this.props.showError}
+                    message={'You have 12 ingredients on your burger... Unfortunately that\'s all we can fit on a burger.' }
+                    buttonText={'All Good'}
+                    click={()=>this.props.toggleDialog('showError')}
+                />
+                <CharDialog
+                    show={this.props.orderBurgerDialog}
+                    message={'A custom burger has been added to your order!'  }
+                    buttonText={'Nice!'}
+                    click={()=>this.props.toggleDialog('orderBurgerDialog')}
+                />
                 <BuilderSection className="col-md-12-gutterless col-lg-6-gutterless" pose={this.state.burgerPreview ? 'hide' : 'show'}>
                     <div className="BurgerBuilder__col">
                         <div className="BurgerBuilder__col__con BurgerBuilder__col__con--left">
@@ -89,7 +104,7 @@ class Builder extends Component {
                             </ul>
                         </div>
 
-                        <div className="BurgerBuilder__col__con">
+                        <div className="BurgerBuilder__col__con u-buffer">
                             {ingControls}
                             {topControls}
                         </div>
@@ -119,13 +134,13 @@ class Builder extends Component {
                             // click={this.props.orderBurger}
                             // click={(e)=>{let x = this.props.orderBurger(e); this.props.pushBurger(x)}}
                             >
-                                <NavLink to='/cart'>
+                         
                                     <ButtonMedium
                                         click={(e) => { let x = this.props.orderBurger(e); this.props.pushBurger(x) }}
                                         styles={'order'}
                                         text="Order Now"
                                     />
-                                </NavLink>
+                   
                             </OrderBurger>
                         </div>
                         <div className="half-col">
@@ -141,7 +156,6 @@ class Builder extends Component {
                     </div>
                 </div>
                 {/* BURGER PREVIEW */}
-
                 <BuilderSection className="col-md-hide" pose={this.state.burgerPreview ? 'show' : 'hide'}>
                     <div className="BurgerBuilder-mobile">
                         <div className="BurgerBuilder-mobile--left ">
@@ -176,8 +190,14 @@ class Builder extends Component {
                             <NavLink to='/checkout'>
                                 <ButtonMedium styles="edit mobile-btn" text="Edit" />
                             </NavLink>
-
-                            <ButtonMedium click={this.props.orderBurger} styles="order mobile-btn" text="Order Now" />
+                   
+                                    <ButtonMedium
+                                        click={(e) => { let x = this.props.orderBurger(e); this.props.pushBurger(x) }}
+                                        styles={'order mobile-btn'}
+                                        text="Order Now"
+                                    />
+                 
+                            {/* <ButtonMedium click={this.props.orderBurger} styles="order mobile-btn" text="Order Now" /> */}
                         </div>
                     </div>
                 </BuilderSection>

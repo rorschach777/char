@@ -4,6 +4,7 @@ import MenuCard from '../../components/Menu/MenuCard/MenuCard';
 import Backdrop from '../../components/_MsLib/UI/Backdrop/Backdrop';
 import Dialog from '../../components/_MsLib/UI/Dialog/Dialog';
 import Logo from '../../../src/components/_MsLib/UI/Logo/Logo';
+import CharDialog from '../../components/UI/CharDialog/CharDialog';
 import './_Menu.scss';
 
 class Menu extends Component {
@@ -181,21 +182,27 @@ class Menu extends Component {
         }
         return (
             <div>
-                <Backdrop 
-                show={this.state.showDialog}
-                click={this.toggleDialog}
-                >
-                    <Dialog 
+                {/* <Backdrop
+                    show={this.state.showDialog}
                     click={this.toggleDialog}
-                    title={'You Added A Burger!'}
-                    buttonText={'Ok, Got it'}
+                >
+                    <Dialog
+                        click={this.toggleDialog}
+                        title={'You added a burger from our menu!'}
+                        styles={'u-text-center'}
+                        buttonText={'Ok, Got it'}
                     >
-                    <div className="Dialog-logo">
-                        <Logo/>
-                    </div>
-                
+                        <div className="Dialog-logo">
+                            <Logo />
+                        </div>
                     </Dialog>
-                </Backdrop>
+                </Backdrop> */}
+                <CharDialog 
+                   show={this.state.showDialog}
+                   click={this.toggleDialog}
+                   message={'You added a burger from our menu'}
+                   buttonText={'Sounds Good!'}
+                />
                 <ContentCon styles='Menu'>
                 <h3 className="content-heading">Specialty Burgers</h3>
                     {

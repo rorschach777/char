@@ -60,11 +60,12 @@ class BugerBuilder extends Component {
             tomatoes: .75,
         },
         totalPrice: 0,
-        totalIngredients: 0
+        totalIngredients: 0, 
+        showError: false, 
+        orderBurgerDialog: false
       
     }
     burgerIngQtyTotal=()=>{
-   
         const ings = Object.values(this.state.ingredients);
         const total = ings.reduce((prev, cur)=>{
             return prev + cur
@@ -107,27 +108,76 @@ class BugerBuilder extends Component {
           return acc + cur;
         });
     }
+    checkIngLength=()=>{
+        let ings, tops, burgerContent, ingQty, topQty
+        ings = Object.values(this.state.ingredients)
+        tops = Object.values(this.state.toppings)
+
+        let reduceArr =(arr)=>{
+            let amount = arr.reduce((prev, cur)=>{
+                return prev + cur
+            })
+            return amount
+        }
+ 
+        let checkVars = ()=> {
+            console.log('HI from Check Vars')
+            ingQty = reduceArr(ings);
+            topQty = reduceArr(tops);
+            console.log(ingQty)
+            burgerContent = ingQty + topQty
+            if(burgerContent >= 12){
+                this.setState(prevState=>({
+                    showError: !prevState.showError
+                }))
+                return false;
+            }
+            return true
+        }
+
+        return checkVars()
+    }
     addIngredientHandler = (e, el, type) => {
         let target = document.getElementById(e.target.id);
         let ingredientQty = this.state[type][el];
         let transformIngredientQty = (ingredientQty += 1);
-        console.log(target)
-        //////////////////////
-        this.setState(
-            prevState => ({
-                [type]: {
-                ...prevState[type],
-                [el]: transformIngredientQty
-                }
-            }), this.burgerTotal
-        );
-        if (transformIngredientQty === 1 && target.id.includes('inc')) {
-            let decButton = target.closest(".ingredient__actions").childNodes[1];
-            decButton.disabled = false;
+        let allowIngs = this.checkIngLength()
+        if (allowIngs === true){
+            this.setState(
+                prevState => ({
+                    [type]: {
+                    ...prevState[type],
+                    [el]: transformIngredientQty
+                    }
+                }), this.burgerTotal
+            );
+        
+            if (transformIngredientQty === 1 && target.id.includes('inc')) {
+                let decButton = target.closest(".ingredient__actions").childNodes[2];
+                decButton.disabled = false;
+            }
+            else {
+                return;
+            }
         }
-        else {
-            return;
-        }
+        // this.setState(
+        //     prevState => ({
+        //         [type]: {
+        //         ...prevState[type],
+        //         [el]: transformIngredientQty
+        //         }
+        //     }), this.burgerTotal
+        // );
+    
+        // if (transformIngredientQty === 1 && target.id.includes('inc')) {
+        //     let decButton = target.closest(".ingredient__actions").childNodes[2];
+        //     console.log('Dec Button: ')
+        //     console.log(decButton)
+        //     decButton.disabled = false;
+        // }
+        // else {
+        //     return;
+        // }
        
     }
     removeIngredientHandler = (e, el, type) =>{
@@ -135,12 +185,12 @@ class BugerBuilder extends Component {
         let ingredientQty = this.state[type][el];
         let transformIngredientQty = (ingredientQty -= 1);
             if (transformIngredientQty === -1){
-                
                 return;
             }
             else if (transformIngredientQty === 0 ){
                 if (target.id.includes('inc')){
-                    let decButton = target.closest(".ingredient__actions").childNodes[1];
+                    let decButton = target.closest(".ingredient__actions").childNodes[2];
+                    console.log(decButton)
                     decButton.disabled = true;
                 }
                 this.setState(
@@ -257,13 +307,23 @@ class BugerBuilder extends Component {
             totalIngredients,
             totalToppings, 
             totalPrice,
-            type: 'build'
+            type: 'build', 
+    
         }
-
+        this.setState(prevState=>({
+            orderBurgerDialog: !prevState.orderBurgerDialog
+        }))
         return burger
 
    
     }
+    toggleDialog = (stateTarget) => {
+
+        this.setState(prevState => ({
+            [stateTarget]: !prevState[stateTarget]
+        }))
+    }
+
     componentWillMount(){
     
     }
@@ -307,6 +367,9 @@ class BugerBuilder extends Component {
           
                 <ContentCon style="BurgerBuilder">
                     <Builder 
+                    showError={this.state.showError}
+                    orderBurgerDialog={this.state.orderBurgerDialog}
+                    toggleDialog={this.toggleDialog}
                     ingredients={this.state.ingredients}
                     ingPrices={this.state.ingredientPrices}
                     toppings={this.state.toppings}

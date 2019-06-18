@@ -13,7 +13,7 @@
   margin-top: 15px;
 }
 .u-hide {
-  display: none;
+  display: none !important;
 }
 .u-margin-x{
   margin-bottom: 3.5rem;
@@ -26,6 +26,12 @@
 }
 .u-border-radius{
   border-radius: .5rem;
+}
+.u-text-center{
+  text-align: center;
+}
+.u-text-dark{
+  color: $color-5;
 }
 
 .phone{

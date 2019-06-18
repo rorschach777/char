@@ -312,7 +312,7 @@ export class Form extends Component {
             <div className="Form__actions">
                 <h5>{this.state.formIsValid ? 'Looks Good, Please Confirm' : 'Please Enter Your Information Above'}</h5>
                 <NavLink to="/cart"><ButtonMedium text="EDIT ORDER" styles='Form__actions__btn edit' /></NavLink>
-                <ButtonMedium text="CONFIRM ORDER" styles='Form__actions__btn checkout' click={(e)=>this.props.formInfo(e, this.returnFormObj() )} disabled={!this.state.formIsValid}/>
+                <ButtonMedium text="CONFIRM" styles='Form__actions__btn checkout' click={(e)=>this.props.formInfo(e, this.returnFormObj() )} disabled={!this.state.formIsValid}/>
             </div>
         </Aux>
         if (this.props.formSubmitted){
@@ -320,7 +320,7 @@ export class Form extends Component {
             <div className="Form__success">
                 <h1 className="success">Success!</h1>
                 <h4>We received your order</h4>
-                <NavLink to="/"><ButtonMedium text="Go Home"/></NavLink>
+                <NavLink to="/"><ButtonMedium text="Go Home" click={this.props.resetForm}/></NavLink>
             </div>
         }
         return (

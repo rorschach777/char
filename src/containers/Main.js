@@ -22,6 +22,12 @@ class Main extends Component {
         grandTotal: 0,
         burgerQty: 0,
     }
+    reset=()=>{
+        this.setState(prevState=>({
+            formSubmitted: false, 
+            burgerArr: []
+        }))
+    }
     toggleMenu=()=>{
         this.setState(prevState=>({
             menuCollapsed: !prevState.menuCollapsed
@@ -119,6 +125,15 @@ class Main extends Component {
             introTitle: false
         })
     }
+    componentDidMount(){
+        window.addEventListener('resize', ()=>{
+            if(window.outerWidth > 768){
+                this.setState(prevState=>({
+                    menuCollapsed: false
+                }))
+            }
+        })
+    }
     render() {
         return (
             <div>
@@ -147,7 +162,9 @@ class Main extends Component {
                     />
                     }/>
 
-                    <Route exact path="/checkout" render={()=><Form 
+                    <Route exact path="/checkout" render={()=>
+                    <Form 
+                    resetForm={this.reset}
                     deliveryType={this.state.deliveryType} 
                     formInfo={this.formInfo} 
                     formSubmitted={this.state.formSubmitted}
@@ -160,6 +177,8 @@ class Main extends Component {
             </div>
         );
     }
+
 }
+
 
 export default withRouter(Main);

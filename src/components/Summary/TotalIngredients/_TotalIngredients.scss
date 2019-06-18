@@ -1,8 +1,39 @@
 
 
+// .TotalIngredients{
+//     width: 100%;
+//     margin: 1.5rem auto;
+
+//     @media only screen and (max-width: $phone){
+//         text-align: center;
+//      }
+//     span{
+//         display: inline-block;
+//         background-color: $color-2;
+//         text-align: center;
+//         box-sizing: border-box;
+//         border-radius: 25px;
+//         width: 25px;
+//         height: 25px;
+//         padding: .5rem 0;
+//         position: relative;
+//         top: 0;
+//     }
+//     h6{
+   
+//         display: inline-block;
+//         text-transform: uppercase;
+      
+//     }
+// }
+
+
+
+
 .TotalIngredients{
-    width: 100%;
-    margin: 1.5rem auto;
+    // width: 100%;
+
+
     @media only screen and (max-width: $phone){
         text-align: center;
      }
@@ -12,8 +43,8 @@
         text-align: center;
         box-sizing: border-box;
         border-radius: 25px;
-        width: 25px;
-        height: 25px;
+        width: 2.5rem;
+        height: 2.5rem;
         padding: .5rem 0;
         position: relative;
         top: 0;
