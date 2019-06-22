@@ -1,16 +1,12 @@
 import React, { Component } from 'react';
-
-import Logo from '../components/_MsLib/UI/Logo/Logo';
 import Aux from '../components/_MsLib/Hoc/Aux';
 import ContentCon from '../components/_MsLib/Con/ContentCon/ContentCon';
 import Builder from '../components/Builder/Builder';
-import Burger from '../components/Builder/Burger/Burger';
-import Controls from '../components/Builder/Controls/Controls'
+import * as switchUtil from '../utils/switchUtil';
 
 
 
-
-import axios from 'axios'; 
+import axios from '../axios/axios'; 
 class BugerBuilder extends Component {
     state = {
         ingredients: {
@@ -101,12 +97,12 @@ class BugerBuilder extends Component {
     sumIngredients=()=>{
         let ingredients = Object.values(this.state.ingredients);
         let ingredientPrices = Object.values(this.state.ingredientPrices);
-        let totalPrices = ingredients.map((cur, idx) => {
-          return cur * ingredientPrices[idx];
-        });
-        let totalPrice = totalPrices.reduce((acc, cur) => {
-          return acc + cur;
-        });
+        // let totalPrices = ingredients.map((cur, idx) => {
+        //   return cur * ingredientPrices[idx];
+        // });
+        // let totalPrice = totalPrices.reduce((acc, cur) => {
+        //   return acc + cur;
+        // });
     }
     checkIngLength=()=>{
         let ings, tops, burgerContent, ingQty, topQty
@@ -221,61 +217,10 @@ class BugerBuilder extends Component {
         })
     }
     switchIngredientName=(ing)=>{
-        switch(ing){
-            case 'angus':
-            return 'Angus Patty';
-            break;
-            case 'buffalo':
-            return 'Buffalo Patty'
-            break;
-            case 'turkey':
-            return 'Turkey Patty'
-            break;
-            case  'bacon':
-            return 'Bacon'
-            break;
-            case 'cheddar':
-            return 'Cheddar Cheese'
-            break;
-            case 'american':
-            return 'American Cheese'
-            break;
-            case 'swiss':
-            return 'Swiss Cheese'
-            break;
-            case 'egg':
-            return 'Fried Egg'
-            break;
-            case 'lettuce':
-            return 'Lettuce'
-            break;
-            case 'tomatoes':
-            return 'Tomatoes'
-            break;
-            case 'pickles':
-            return 'Pickles'
-            break;
-            case 'onions':
-            return 'Onions'
-            break;
-            case 'ketchup':
-            return 'Ketchup'
-            break;
-            case 'avacado':
-            return 'Avacado Aeoli'
-            break;
-            case 'mayo':
-            return 'Mayo'
-            break;
-            default: 
-            return 'XXX'
-
-        }
-        return;
+        let ingStr = switchUtil.ingName(ing)
+        return ingStr
     }
-  
     orderBurger=()=>{
-
         // Z-index & Animation functionality of Burger UI
         let burgerIngs = document.querySelectorAll('.Ingredient-Con');
         let int = 2;
@@ -314,27 +259,22 @@ class BugerBuilder extends Component {
             orderBurgerDialog: !prevState.orderBurgerDialog
         }))
         return burger
-
-   
     }
     toggleDialog = (stateTarget) => {
-
         this.setState(prevState => ({
             [stateTarget]: !prevState[stateTarget]
         }))
     }
-
     componentWillMount(){
-    
     }
     componentDidMount(){
         // axios.get('https://char-93c7a.firebaseio.com/ingredients.json').then(response=>{
         //     this.setState({ingredients: response.data})
         // });
-        axios.get('https://char-93c7a.firebaseio.com/ingredients.json').then(response=>{
+        axios.get('/ingredients.json').then(response=>{
             this.setState({ingredients: response.data})
         }).then(response=>{
-            axios.get('https://char-93c7a.firebaseio.com/toppings.json').then(response=>{
+            axios.get('/toppings.json').then(response=>{
                 this.setState({toppings: response.data})
             }).then(response=>{
                 this.sumIngredients();
@@ -345,16 +285,6 @@ class BugerBuilder extends Component {
            
         
         });
-
-        // axios.get('https://char-93c7a.firebaseio.com/toppings.json').then(response=>{
-        //     this.setState({toppings: response.data})
-        // }).then(response=>{
-        //     this.sumIngredients();
-        //     this.burgerTotal();
-        //     this.disableLessButtons();
-        //     this.burgerIngQtyTotal();
-        // })
-
     }
    
     componentDidUpdate(){

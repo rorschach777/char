@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import ContentCon from '../../components/_MsLib/Con/ContentCon/ContentCon';
 import MenuCard from '../../components/Menu/MenuCard/MenuCard';
-import Backdrop from '../../components/_MsLib/UI/Backdrop/Backdrop';
-import Dialog from '../../components/_MsLib/UI/Dialog/Dialog';
-import Logo from '../../../src/components/_MsLib/UI/Logo/Logo';
 import CharDialog from '../../components/UI/CharDialog/CharDialog';
 import './_Menu.scss';
 
@@ -139,8 +136,6 @@ class Menu extends Component {
                 },
                 totalToppings: {
                     tomatoe: 1,
-
-
                 },
                 totalPrice: 13.50
             },
@@ -182,21 +177,6 @@ class Menu extends Component {
         }
         return (
             <div>
-                {/* <Backdrop
-                    show={this.state.showDialog}
-                    click={this.toggleDialog}
-                >
-                    <Dialog
-                        click={this.toggleDialog}
-                        title={'You added a burger from our menu!'}
-                        styles={'u-text-center'}
-                        buttonText={'Ok, Got it'}
-                    >
-                        <div className="Dialog-logo">
-                            <Logo />
-                        </div>
-                    </Dialog>
-                </Backdrop> */}
                 <CharDialog 
                    show={this.state.showDialog}
                    click={this.toggleDialog}

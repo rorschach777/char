@@ -1,10 +1,12 @@
 .Burger {
     width: 75%;
     margin: -1.5rem auto 0 auto;
-    height: 55rem;
+    min-height: 55rem;
     @media only screen and (max-width: $phone){
         @include center-block(1.5rem);
         @include buffer;
+        min-height: 45rem;
+        margin-top: 2.5rem;
     }
 }
 .empty {

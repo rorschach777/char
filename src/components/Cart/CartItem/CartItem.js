@@ -3,6 +3,7 @@ import "./_CartItem.scss";
 import posed from 'react-pose'
 import visibileIcon from '../../../assets/images/icons/icon-visibile.svg';
 import deleteIcon from '../../../assets/images/icons/icon-delete.svg';
+import * as switchUtil from '../../../utils/switchUtil'
 const CartItemBottom = posed.div({
     open: {
         applyAtStart: {
@@ -58,7 +59,6 @@ class CartItem extends Component  {
             else if (title === 'Meat Lovers Burger'){
                 return `${base}--8`
             }
- 
     
         }
         else {
@@ -69,18 +69,10 @@ class CartItem extends Component  {
         let ingKey = Object.keys(this.props.totalIngredients);
         let topKey = Object.keys(this.props.totalToppings)
         let ingList = ingKey.map((cur, idx)=>{
-            return (
-                <ul>
-                    <li>{`${cur.charAt(0).toUpperCase()+cur.slice(1)}: ${this.props.totalIngredients[cur]}`}</li>
-                </ul>
-            )
+            return  <li>{switchUtil.ingName(cur)}</li>
         });
         let topList = topKey.map((cur, idx)=>{
-            return (
-                <ul>
-                    <li>{`${cur.charAt(0).toUpperCase()+cur.slice(1)}: ${this.props.totalToppings[cur]}`}</li>
-                </ul> 
-            )
+            return <li>{switchUtil.ingName(cur)}</li>
         })
         return (
             <div id={this.props.id} className="Cart__item">
@@ -111,20 +103,19 @@ class CartItem extends Component  {
                     <div className="Cart__item__bottom__content col-lg-12">
                         <h5>Burger Ingredients:</h5>
                         <div className="Cart__item__bottom__content__ingredients col-lg-9 col-sm-8">
-                          {ingList}
-                          {topList}
+                            <ul>
+                                {ingList}
+                                {topList}
+                            </ul>
                         </div>
                         <div className="Cart__item__bottom__content__price col-lg-3 col-sm-4">
                             <h6>Price: <span>$ {this.props.totalPrice.toFixed(2)}</span></h6>
                         </div>
-               
                     </div>
                 </CartItemBottom>
             </div>
         );
-   
-    }
-        
+    }    
 };
 
 export default CartItem;

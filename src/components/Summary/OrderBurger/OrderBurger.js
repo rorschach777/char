@@ -1,9 +1,6 @@
 import React from 'react';
 import './_OrderBurger.scss';
-import ButtonMedium from '../../_MsLib/UI/Buttons/ButtonMedium/ButtonMedium';
-
-import DesktopCon from '../../_MsLib/Con/DesktopCon/DesktopCon';
-import {Route, NavLink, Redirect} from 'react-router-dom'
+import {NavLink} from 'react-router-dom'
 const OrderBurger = (props) => {
     let price = props.totalPrice.toFixed(2)
     return (

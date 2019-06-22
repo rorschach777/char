@@ -44,7 +44,7 @@ class Builder extends Component {
         const ingsMap =
             ingsKeys.map((cur, idx) => {
                 return (
-                    <div className="ingredient" id={`${cur}-${idx}`} key={`ingredients-${idx}`}>
+                    <div className="ingredient" id={`ingredient-${cur}-${idx}`} key={`ingredients-${idx}`}>
                         <div className="ingredient__con">
                             <div className="ingredient__name">
                                 {this.props.switchIngs(cur)}
@@ -63,7 +63,7 @@ class Builder extends Component {
         const topMap =
             toppingsKeys.map((cur, idx) => {
                 return (
-                    <div className="ingredient" id={`${cur}-${idx}`} key={`toppings-${idx}`}>
+                    <div className="ingredient" id={`topping-${cur}-${idx}`} key={`toppings-${idx}`}>
                         <div className="ingredient__con">
                             <div className="ingredient__name">
                                 {this.props.switchIngs(cur)}
@@ -156,7 +156,7 @@ class Builder extends Component {
                     </div>
                 </div>
                 {/* BURGER PREVIEW */}
-                <BuilderSection className="col-md-hide" pose={this.state.burgerPreview ? 'show' : 'hide'}>
+                <BuilderSection className="col-md-hide col-lg-hide" pose={this.state.burgerPreview ? 'show' : 'hide'}>
                     <div className="BurgerBuilder-mobile">
                         <div className="BurgerBuilder-mobile--left ">
                             <Logo styles={'logo-mobile'} />
@@ -187,16 +187,16 @@ class Builder extends Component {
                             />
                         </div>
                         <div className="BurgerBuilder-mobile--bottom ">
-                            <NavLink to='/checkout'>
-                                <ButtonMedium styles="edit mobile-btn" text="Edit" />
-                            </NavLink>
-                   
+                          
+                                <ButtonMedium click={this.burgerPreviewHandler} styles="edit mobile-btn" text="Edit" />
+                      
+                            <NavLink to='/cart'> 
                                     <ButtonMedium
                                         click={(e) => { let x = this.props.orderBurger(e); this.props.pushBurger(x) }}
                                         styles={'order mobile-btn'}
                                         text="Order Now"
                                     />
-                 
+                            </NavLink>
                             {/* <ButtonMedium click={this.props.orderBurger} styles="order mobile-btn" text="Order Now" /> */}
                         </div>
                     </div>

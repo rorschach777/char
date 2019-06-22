@@ -16,7 +16,6 @@ const MenuCard = (props) => {
                 <div className="Menu__card__description__bottom">
                 <p>{props.description}</p>
                 </div>
-   
             </div>
         </div>
     );

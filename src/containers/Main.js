@@ -34,7 +34,13 @@ class Main extends Component {
         }))
     }
     assignBugerId=()=>{
-        let int = this.state.burgerQty += 1;
+        /// THIS IS HOW THIS WAS... 
+
+        // let int = this.state.burgerQty += 1;
+        // return `burger-${int}`;
+
+        let int = this.state.burgerQty
+        int = int += 1;
         return `burger-${int}`;
     }
     sayHi=()=>{
@@ -142,7 +148,7 @@ class Main extends Component {
                     <Header 
                     toggleMenu={this.toggleMenu}
                     menuCollapsed={this.state.menuCollapsed}
-                    menuItems={[<NavLink to="/Menu">Menu</NavLink>, <NavLink to='build'>Builder</NavLink>,  <NavLink to='/cart' styles='Header__menu__con__cart'><img className="cart" src={cartIcon} />{this.state.burgerArr.length}</NavLink>] }
+                    menuItems={[<NavLink to="/Menu">Menu</NavLink>, <NavLink to='build'>Builder</NavLink>,  <NavLink to='/cart' styles='Header__menu__con__cart'><img className="cart" alt="Cart" src={cartIcon} />{this.state.burgerArr.length}</NavLink>] }
                     >
                     <Logo/> 
                     </Header>

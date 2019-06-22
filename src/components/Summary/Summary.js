@@ -1,16 +1,14 @@
 import React from 'react';
 import './_Summary.scss';
 import './OrderBurger/OrderBurger';
-import OrderBurger from './OrderBurger/OrderBurger';
 import TotalIngredients from './TotalIngredients/TotalIngredients'
 const Summary = (props) => {
     const ingList = () => {
         const ings = Object.keys(props.ingredients);
         const ingsQty = Object.values(props.ingredients);
-        const arr = [...Array(ings.length)]
         let ingredients =  ings.map((cur, idx)=>{
             if (ingsQty[idx] !== 0){
-                return <li><span>({ingsQty[idx]}) </span>{props.switchIngs(cur)}</li>  
+                return <li key={`summary-${cur}-${idx}`}><span>({ingsQty[idx]}) </span>{props.switchIngs(cur)}</li>  
             }
         })
         return ingredients;
@@ -20,7 +18,7 @@ const Summary = (props) => {
         const topsQty = Object.values(props.toppings);
         let toppings =  tops.map((cur, idx)=>{
             if (topsQty[idx] !== 0){
-                return <li><span>({topsQty[idx]}) </span>{props.switchIngs(cur)}</li>  
+                return <li key={`summary-${cur}-${idx}`}><span>({topsQty[idx]}) </span>{props.switchIngs(cur)}</li>  
             }
         });
         return toppings;

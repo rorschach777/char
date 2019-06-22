@@ -385,7 +385,7 @@
     }
 }
 .col-lg-hide{
-    @media only screen and (min-width: calc(#{$tablet}+1 )) { 
+    @media only screen and (min-width: calc((#{$tablet} +1 ))) { 
         display: none !important;
     }
 }

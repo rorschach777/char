@@ -86,7 +86,9 @@
             margin-bottom: 1.5rem;
         }
         &__content{
-     
+            ul li { 
+                margin-bottom: .5rem;
+            }
             &__price{
                 @include black-overlay;
                 @include boxPad(1.5rem);
