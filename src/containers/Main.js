@@ -11,6 +11,8 @@ import Cart from '../containers/Cart/Cart';
 import {withRouter, Route, NavLink} from 'react-router-dom';
 import cartIcon from '../assets/images/icons/cart-icon-2.svg';
 import axios from 'axios';
+import * as actionTypes from '../store/actionTypes';
+import {connect} from 'react-redux'
 
 class Main extends Component {
     state = {
@@ -20,7 +22,7 @@ class Main extends Component {
         burgerArr:[],
         formObj: {},
         grandTotal: 0,
-        burgerQty: 0,
+        burgerQty: 1,
     }
     reset=()=>{
         this.setState(prevState=>({
@@ -38,14 +40,12 @@ class Main extends Component {
 
         // let int = this.state.burgerQty += 1;
         // return `burger-${int}`;
+        this.setState(prevState=>({
+            burgerQty: prevState.burgerQty += 1
+        }))
+        return `burger-${this.state.burgerQty}`;
+    }
 
-        let int = this.state.burgerQty
-        int = int += 1;
-        return `burger-${int}`;
-    }
-    sayHi=()=>{
-        console.log('hi');
-    }
     showState=()=>{
         console.log(this.state)
     }
@@ -58,6 +58,7 @@ class Main extends Component {
         }), this.sendOrder
         )
     }
+    // add up the grand total. 
     grandTotal=()=>{
         let burgers = this.state.burgerArr
         let prices = []
@@ -69,24 +70,41 @@ class Main extends Component {
             return prev + cur
         });
   
-        console.log(`Grand Total: ${grandTotal}`)
+
         this.setState(prevState=>({
             grandTotal: grandTotal
-        }), this.showState
+        })
      
         );
     }
+    // this sends the order to the state
     sendOrder=()=>{
-    
+        let buildBurgers, menuBurgers, allBurgers
+        buildBurgers = []
+        menuBurgers = []
+        allBurgers = this.state.burgerArr
+
+        allBurgers.map((cur, idx)=>{
+            if (cur.type === 'build'){
+                buildBurgers.push(cur)
+            }
+            else {
+                menuBurgers.push(cur)
+            }
+        })
+     
         let orderData = {
             burgers: {
-                builtBurgers: this.state.burgerArr, 
-                menuBurgers: []
+                builtBurgers: buildBurgers, 
+                menuBurgers: menuBurgers
             }, 
             contactInfo: this.state.formObj, 
         }
+        console.log('--------- ORDER DATA -----------')
+        console.log(orderData)
         axios.post('https://char-93c7a.firebaseio.com/orders.json', orderData); 
     }
+    // removes the burger from the burger state obj. 
     removeBurger=(burgerId)=>{
         let burgers = this.state.burgerArr
         const removeElement = (idx) => {
@@ -104,33 +122,48 @@ class Main extends Component {
         console.log(burgers)
     }
     ////// THIS FUNCTION 1 IS REDUNDANT --- SEE IF YOU CAN COMBINE THESE> 
-    burgerInfo=(e, builtBurger)=>{
-        console.log(this.state)
+    // burgerInfo=(e, builtBurger)=>{
+    //     console.log(this.state)
         
-        e.preventDefault();
+    //     e.preventDefault();
 
-        this.setState(prevState=>({
-            burgerArr: prevState.burgerArr.concat(builtBurger)
-        }), this.showState
-        )
-        console.log(builtBurger);
-        setTimeout(()=>{this.props.history.push('/cart')}, 1000)
+    //     this.setState(prevState=>({
+    //         burgerArr: prevState.burgerArr.concat(builtBurger)
+    //     }), this.showState
+    //     )
+    //     console.log(builtBurger);
+    //     setTimeout(()=>{this.props.history.push('/cart')}, 1000)
  
-    }
+    // }
     ////// THIS FUNCTION 2 IS REDUNDANT  --- SEE IF YOU CAN COMBINE THESE> 
     pushBurger=(builtBurger)=>{
-        console.log(builtBurger)
         this.setState(prevState=>({
             burgerArr: prevState.burgerArr.concat(builtBurger)
         }), this.grandTotal
         )
      
     }
+    /// Formats the ingredient name to a string that's displayed on the UI. 
+    ingName = (ing) => {
+        let strArr = Array.from(ing)
+        strArr.forEach((cur, idx)=>{
+            // If there's a CamelCased Letter, we Need to insert a space before it. 
+            if (cur === cur.toUpperCase()){
+                let spaceIdx = idx
+                strArr.splice(spaceIdx, 0, ' ')
+            }
+        })
+        // Capitalize the first letter of every ingredient, plus the rest of the string, then join the array back to a str. 
+        let transString = strArr[0].toUpperCase() + strArr.slice(1).join('')
+        // return the result. 
+        return transString
+    }
     letsEat=()=>{
         this.setState({
             introTitle: false
         })
     }
+    /// If the window is greater than tablet always show the menu, despite the menu collapsed state. 
     componentDidMount(){
         window.addEventListener('resize', ()=>{
             if(window.outerWidth > 768){
@@ -155,6 +188,7 @@ class Main extends Component {
 
                     <Route exact path='/build' render={()=>
                     <BurgerBuilder 
+                    ingName={this.ingName}
                     pushBurger={this.pushBurger}
                     burgerId={this.assignBugerId}
                     burgerInfo={this.burgerInfo}/>}
@@ -162,6 +196,7 @@ class Main extends Component {
 
                     <Route exact path="/cart" render={()=>
                     <Cart 
+                    ingName={this.ingName}
                     removeBurger={this.removeBurger}
                     cartItems={this.state.burgerArr} 
                     grandTotal={this.state.grandTotal}
@@ -177,7 +212,7 @@ class Main extends Component {
                     />}/>
 
                     <Route exact path='/menu' render={()=><Menu pushBurger={this.pushBurger} burgerId={this.assignBugerId}/>}/>
-                    <Route exact path='/' render={()=><Intro test={this.sayHi}/>}/>
+                    <Route exact path='/' render={()=><Intro reduxTest={()=>{console.log('Entry')}} test={this.sayHi}/>}/>
                 </Background>
                 <Footer/>
             </div>
@@ -185,6 +220,15 @@ class Main extends Component {
     }
 
 }
-
-
-export default withRouter(Main);
+// REDUX
+const mapStateToProps = (state) =>{
+    return {
+        prop1: state.prop
+    }
+}
+const mapDispatchToProps = (dispatch)=> {
+    return {
+        reduxTest: ()=>dispatch({type: actionTypes.REDUXTEST})
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Main));

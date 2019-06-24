@@ -6,7 +6,8 @@ import ButtonMedium from '../_MsLib/UI/Buttons/ButtonMedium/ButtonMedium';
 import Controls from './Controls/Controls';
 import CheckControl from './Controls/CheckControl/CheckControl';
 import OrderBurger from '../Summary/OrderBurger/OrderBurger';
-import TotalIngredients from '../Summary/TotalIngredients/TotalIngredients'
+import TotalIngredients from '../Summary/TotalIngredients/TotalIngredients';
+import {Redirect} from 'react-router'
 import Burger from './Burger/Burger';
 import CharDialog from '../UI/CharDialog/CharDialog'
 
@@ -27,6 +28,8 @@ const BuilderSection = posed.div({
 class Builder extends Component {
     state = {
         burgerPreview: false,
+        redirect: false, 
+        ingIdx:  0
 
     }
 
@@ -36,7 +39,28 @@ class Builder extends Component {
         }));
 
     }
+    redirectToCart = ()=>{
+        this.setState(prevState=>({
+            redirect: !prevState.redirect
+        }))
+
+    }
+    incIngIdx = () => {
+        this.setState(prevState=>({
+            ingIdx: prevState.ingIdx += 1
+        }))
+    }
+    componentDidMount(){
+        if (this.state.redirect === true) {
+            this.setState({
+                redirect: false
+            })
+        }
+    }
     render() {
+        if (this.state.redirect){
+            return <Redirect to="/cart" />
+        }
         const ingsKeys = Object.keys(this.props.ingredients);
         const ingsValues = this.props.ingredients;
         const toppingsKeys = Object.keys(this.props.toppings);
@@ -54,7 +78,7 @@ class Builder extends Component {
                             </div>
                             <div className="ingredient__actions">
                                 <TotalIngredients styles={'phone'} ingTotal={ingsValues[cur]} headlineStyles='u-hide'></TotalIngredients>
-                                <Controls current={cur} type="ingredients" disabled={true} add={this.props.addIngs} remove={this.props.removeIngs} />
+                                <Controls current={cur} type="ingredients" disabled={true} add={this.props.addIngs} incIngIdx={this.incIngIdx} remove={this.props.removeIngs} />
                             </div>
                         </div>
                     </div>
@@ -92,7 +116,7 @@ class Builder extends Component {
                     show={this.props.orderBurgerDialog}
                     message={'A custom burger has been added to your order!'  }
                     buttonText={'Nice!'}
-                    click={()=>this.props.toggleDialog('orderBurgerDialog')}
+                    click={()=>{this.props.toggleDialog('orderBurgerDialog'); setTimeout(this.redirectToCart, 1000)}}
                 />
                 <BuilderSection className="col-md-12-gutterless col-lg-6-gutterless" pose={this.state.burgerPreview ? 'hide' : 'show'}>
                     <div className="BurgerBuilder__col">
@@ -145,6 +169,7 @@ class Builder extends Component {
                         </div>
                         <div className="half-col">
                             <Burger
+                                ingIdx = {this.state.ingIdx}
                                 totalPrice={this.props.totalPrice}
                                 toppings={toppingsKeys}
                                 toppingsQty={toppingsValues}
@@ -179,6 +204,7 @@ class Builder extends Component {
                         </div>
                         <div className="BurgerBuilder-mobile--right ">
                             <Burger
+                                ingIdx = {this.state.ingIdx}
                                 totalPrice={this.props.totalPrice}
                                 toppings={toppingsKeys}
                                 toppingsQty={toppingsValues}
@@ -188,7 +214,7 @@ class Builder extends Component {
                         </div>
                         <div className="BurgerBuilder-mobile--bottom ">
                           
-                                <ButtonMedium click={this.burgerPreviewHandler} styles="edit mobile-btn" text="Edit" />
+                            <ButtonMedium click={this.burgerPreviewHandler} styles="edit mobile-btn" text="Edit" />
                       
                             <NavLink to='/cart'> 
                                     <ButtonMedium

@@ -5,7 +5,7 @@ const OrderBurger = (props) => {
     let price = props.totalPrice.toFixed(2)
     return (
         <div className={`OrderBurger ${props.styles}`}>
-            <h3 className>{props.headline}</h3>
+            <h3>{props.headline}</h3>
             <div className="OrderBurger__con stroke-light">
                 <h5>Order Total: <span>${price}</span></h5>
      

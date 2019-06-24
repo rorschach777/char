@@ -14,8 +14,6 @@ class Menu extends Component {
         }))
     }
     render() {
-
-
         const orderBurger = (e) => {
          
                 // locate the event id, use this to select from the menu data. 
@@ -39,7 +37,6 @@ class Menu extends Component {
                   totalPrice, 
                   type: 'menu'  
                 } 
-                console.log(burger)
                 return burger;
 
         }
@@ -188,6 +185,7 @@ class Menu extends Component {
                     {
                         burgerMenuArr.map((cur, idx)=>{
                             return <MenuCard 
+                            key={`Menu-Item-${idx}`}
                             id={`menu-card-${idx}`}
                             title={burgerMenu[cur].title} 
                             subTitle={burgerMenu[cur].subTitle} 

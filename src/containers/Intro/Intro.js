@@ -21,6 +21,9 @@ class Intro extends Component {
                     <NavLink to='/build'>
                         <ButtonLarge text="Let's Eat" styles={'color-1'} />
                     </NavLink>
+        
+                        {/* <ButtonLarge click={this.props.reduxTest} text="Let's Eat" styles={'color-1'} /> */}
+      
                 </ContentCon>
             </Aux>
         );

@@ -7,21 +7,26 @@ import './_Burger.scss';
 const Burger = (props) => {
 
     let idx = 999
+    let ingId = 0
     const zIndex =()=>{
         idx = idx - 1 ;
         return idx;
     }
+    const ingIdx = (cur)=> {
+        ingId += 1
+        return `${cur}-${ingId}`
+    }
     let toppings = props.toppings.map((cur, idx)=>{
         let quantity = [...Array(props.toppingsQty[cur])];
         let tops = quantity.map((_, idx2)=>{
-            return <Ingredient key={`${cur}-${idx}`} ingZIndex={zIndex()} type={cur}/>
+            return <Ingredient key={ingIdx(cur)} ingZIndex={zIndex()} type={cur}/>
         });
         return tops
     });
     let ingredients = props.ingredients.map((cur, idx)=>{
         let quantity = [...Array(props.ingredientQty[cur])];
         let ings = quantity.map((_, idx2)=>{
-                return <Ingredient key={`${cur}-${idx}`} ingZIndex={zIndex()} type={cur}/>
+                return <Ingredient key={ingIdx(cur)} ingZIndex={zIndex()} type={cur}/>
             });
         return ings
     })
@@ -32,9 +37,7 @@ const Burger = (props) => {
         }
         else {
             return (
-          
                 burger
-                
             )
         }
     }

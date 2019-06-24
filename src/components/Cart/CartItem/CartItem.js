@@ -3,7 +3,7 @@ import "./_CartItem.scss";
 import posed from 'react-pose'
 import visibileIcon from '../../../assets/images/icons/icon-visibile.svg';
 import deleteIcon from '../../../assets/images/icons/icon-delete.svg';
-import * as switchUtil from '../../../utils/switchUtil'
+// import * as switchUtil from '../../../utils/switchUtil'
 const CartItemBottom = posed.div({
     open: {
         applyAtStart: {
@@ -69,10 +69,10 @@ class CartItem extends Component  {
         let ingKey = Object.keys(this.props.totalIngredients);
         let topKey = Object.keys(this.props.totalToppings)
         let ingList = ingKey.map((cur, idx)=>{
-            return  <li>{switchUtil.ingName(cur)}</li>
+            return  <li key={`${cur}-${idx}`}>{this.props.ingName(cur)}</li>
         });
         let topList = topKey.map((cur, idx)=>{
-            return <li>{switchUtil.ingName(cur)}</li>
+            return <li key={`${cur}-${idx}`}>{this.props.ingName(cur)}</li>
         })
         return (
             <div id={this.props.id} className="Cart__item">

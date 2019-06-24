@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Aux from '../components/_MsLib/Hoc/Aux';
 import ContentCon from '../components/_MsLib/Con/ContentCon/ContentCon';
 import Builder from '../components/Builder/Builder';
-import * as switchUtil from '../utils/switchUtil';
+// import * as switchUtil from '../utils/switchUtil';
 
 
 
@@ -115,12 +115,10 @@ class BugerBuilder extends Component {
             })
             return amount
         }
- 
         let checkVars = ()=> {
-            console.log('HI from Check Vars')
             ingQty = reduceArr(ings);
             topQty = reduceArr(tops);
-            console.log(ingQty)
+  
             burgerContent = ingQty + topQty
             if(burgerContent >= 12){
                 this.setState(prevState=>({
@@ -130,12 +128,16 @@ class BugerBuilder extends Component {
             }
             return true
         }
-
         return checkVars()
     }
     addIngredientHandler = (e, el, type) => {
+        console.log(`----- PROBLEM: -----`)
+        console.log(`type: ${type}`)
+        console.log(`element: ${el}`)
+        console.log(`----- PROBLEM: -----`)
         let target = document.getElementById(e.target.id);
         let ingredientQty = this.state[type][el];
+        console.log(`--- ingQty:  ${ingredientQty} ---`)
         let transformIngredientQty = (ingredientQty += 1);
         let allowIngs = this.checkIngLength()
         if (allowIngs === true){
@@ -147,7 +149,6 @@ class BugerBuilder extends Component {
                     }
                 }), this.burgerTotal
             );
-        
             if (transformIngredientQty === 1 && target.id.includes('inc')) {
                 let decButton = target.closest(".ingredient__actions").childNodes[2];
                 decButton.disabled = false;
@@ -217,7 +218,9 @@ class BugerBuilder extends Component {
         })
     }
     switchIngredientName=(ing)=>{
-        let ingStr = switchUtil.ingName(ing)
+      // let ingStr = switchUtil.ingName(ing)
+        // return ingStr
+        let ingStr = this.props.ingName(ing)
         return ingStr
     }
     orderBurger=()=>{
@@ -226,7 +229,6 @@ class BugerBuilder extends Component {
         let int = 2;
         for (let i = 0; i < burgerIngs.length; i++){
             let el = burgerIngs[i]
-            console.log(burgerIngs)
             el.style.minHeight = '1rem'
             if (burgerIngs[i].classList.contains('Ingredient--sm')){
                 el.style.zIndex= 999
@@ -295,7 +297,7 @@ class BugerBuilder extends Component {
         return (
             <Aux>
           
-                <ContentCon style="BurgerBuilder">
+                <ContentCon styles="BurgerBuilder">
                     <Builder 
                     showError={this.state.showError}
                     orderBurgerDialog={this.state.orderBurgerDialog}

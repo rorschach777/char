@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import ContentCon from '../../components/_MsLib/Con/ContentCon/ContentCon';
 import './_Form.scss';
 import Input from '../../components/_MsLib/UI/Form/Input/Input';
-import Select from '../../components/_MsLib/UI/Form/Select/Select';
 import ButtonMedium from '../../components/_MsLib/UI/Buttons/ButtonMedium/ButtonMedium';
 import {NavLink} from 'react-router-dom';
 import Aux from '../../components/_MsLib/Hoc/Aux'
@@ -202,8 +201,6 @@ export class Form extends Component {
             formIsValid = updatedOrderForm[inputIdentifier].valid && formIsValid
         }
         this.setState({controls: updatedOrderForm, formIsValid: formIsValid})
-        console.log(this.state)
-      
     }
     returnFormObj = () => {
         // e.preventDefault();

@@ -1,6 +1,6 @@
 import React from 'react';
 import './_Ingredient.scss';
-import breadTop from '../../../../assets/images/ingredient-bread-top.png';
+
 
 const Ingredient = (props) => {
     const getZindex=()=>{

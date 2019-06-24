@@ -29,12 +29,13 @@ class Cart extends Component {
                             <span >Actions</span>
                         </div>
                     </div>
-                    {this.props.cartItems.map((cur,idx)=>{return (
+                    {this.props.cartItems.map((cur, idx)=>{return (
                     <CartItem
                     key={`cart-item-${idx}`}
                     id={cur.id}
                     idx={idx}
                     title={cur.title}
+                    ingName={this.props.ingName}
                     type={cur.type}
                     totalIngredients={cur.totalIngredients}
                     totalToppings={cur.totalToppings}
@@ -54,7 +55,6 @@ class Cart extends Component {
                             text="Order Now"
                         />
                     </NavLink>
-            
                     </OrderBurger>
                 
          
