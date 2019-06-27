@@ -26,7 +26,7 @@ class Cart extends Component {
                         <div className="col-lg-2">BURGER TYPE</div>
                         <div className="col-lg-2">TOTAL</div>
                         <div className="Cart__item__actions col-lg-2">
-                            <span >Actions</span>
+                            <span>Actions</span>
                         </div>
                     </div>
                     {this.props.cartItems.map((cur, idx)=>{return (
@@ -40,7 +40,7 @@ class Cart extends Component {
                     totalIngredients={cur.totalIngredients}
                     totalToppings={cur.totalToppings}
                     totalPrice={cur.totalPrice}
-                    removeBurger={(e)=>{let elementId = this.cartItemId(e); this.props.removeBurger(elementId)}}
+                    removeBurger={(e)=>{let elementId = this.cartItemId(e); this.props.removeBurger(elementId); this.props.getGrandTotal()}}
                     />
                     )})}
                     </div>

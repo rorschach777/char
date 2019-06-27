@@ -6,5 +6,15 @@
     color: $color-white;
     bottom: 0px;
     width: 100%;
+    @media only screen and (max-width: $phone){
+        text-align: center;
+    }
+    &__logo{
+        max-width: 8.5rem;
+        margin: .5rem 0;
+        @media only screen and (max-width: $phone){
+            @include center-block(.5rem);
+        }
+    }
 
 }

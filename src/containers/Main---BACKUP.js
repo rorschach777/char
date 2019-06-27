@@ -16,39 +16,39 @@ import {connect} from 'react-redux'
 
 class Main extends Component {
     state = {
-        introTitle: false, 
-        menuCollapsed: false,
-        formSubmitted: false,
-        burgerArr:[],
-        formObj: {},
-        grandTotal: 0,
-        burgerQty: 1,
+        // introTitle: false, 
+        // menuCollapsed: false,
+        formSubmitted: false
+        // burgerArr:[],
+        // formObj: {},
+        // grandTotal: 0,
+        // burgerQty: 1,
     }
-    reset=()=>{
-        this.setState(prevState=>({
-            formSubmitted: false, 
-            burgerArr: []
-        }))
-    }
-    toggleMenu=()=>{
-        this.setState(prevState=>({
-            menuCollapsed: !prevState.menuCollapsed
-        }))
-    }
-    assignBurgerId=()=>{
-        /// THIS IS HOW THIS WAS... 
+    // reset=()=>{
+    //     this.setState(prevState=>({
+    //         formSubmitted: false, 
+    //         burgerArr: []
+    //     }))
+    // }
+    // toggleMenu=()=>{
+    //     this.setState(prevState=>({
+    //         menuCollapsed: !prevState.menuCollapsed
+    //     }))
+    // }
+    // assignBurgerId=()=>{
+    //     /// THIS IS HOW THIS WAS... 
 
-        // let int = this.state.burgerQty += 1;
-        // return `burger-${int}`;
-        this.setState(prevState=>({
-            burgerQty: prevState.burgerQty += 1
-        }))
-        return `burger-${this.state.burgerQty}`;
-    }
+    //     // let int = this.state.burgerQty += 1;
+    //     // return `burger-${int}`;
+    //     this.setState(prevState=>({
+    //         burgerQty: prevState.burgerQty += 1
+    //     }))
+    //     return `burger-${this.state.burgerQty}`;
+    // }
 
-    showState=()=>{
-        console.log(this.state)
-    }
+    // showState=()=>{
+    //     console.log(this.state)
+    // }
     formInfo=(e, formObj)=>{
         e.preventDefault();
         let updatedFormObj = formObj
@@ -59,24 +59,24 @@ class Main extends Component {
         )
     }
     // add up the grand total. 
-    grandTotal=()=>{
-        let burgers = this.state.burgerArr
-        let prices = []
-        burgers.forEach((cur, idx)=>{
-            prices.push(cur.totalPrice)
-        })
+    // grandTotal=()=>{
+    //     let burgers = this.state.burgerArr
+    //     let prices = []
+    //     burgers.forEach((cur, idx)=>{
+    //         prices.push(cur.totalPrice)
+    //     })
     
-        let grandTotal = prices.reduce((prev, cur)=>{
-            return prev + cur
-        });
+    //     let grandTotal = prices.reduce((prev, cur)=>{
+    //         return prev + cur
+    //     });
   
 
-        this.setState(prevState=>({
-            grandTotal: grandTotal
-        })
+    //     this.setState(prevState=>({
+    //         grandTotal: grandTotal
+    //     })
      
-        );
-    }
+    //     );
+    // }
     // this sends the order to the state
 
     ///////////////////// REDUX ASYNC /////////////////////////
@@ -108,44 +108,44 @@ class Main extends Component {
     }
     
     // removes the burger from the burger state obj. 
-    removeBurger=(burgerId)=>{
-        let burgers = this.state.burgerArr
-        const removeElement = (idx) => {
-            burgers.splice(idx, 1);
-            this.setState(prevState=>({
-                burgerArr: burgers
-            }), burgers.length > 0 ? this.grandTotal : this.setState(prevState=>({grandTotal: 0})))
-        }
-        // The event click passes the burger id on the closest parent el... 
-        burgers.forEach((cur, idx)=>{
-            if (cur.id === burgerId){
-                return removeElement(idx)
-            }
-        });
-        console.log(burgers)
-    }
+    // removeBurger=(burgerId)=>{
+    //     let burgers = this.state.burgerArr
+    //     const removeElement = (idx) => {
+    //         burgers.splice(idx, 1);
+    //         this.setState(prevState=>({
+    //             burgerArr: burgers
+    //         }), burgers.length > 0 ? this.grandTotal : this.setState(prevState=>({grandTotal: 0})))
+    //     }
+    //     // The event click passes the burger id on the closest parent el... 
+    //     burgers.forEach((cur, idx)=>{
+    //         if (cur.id === burgerId){
+    //             return removeElement(idx)
+    //         }
+    //     });
+    //     console.log(burgers)
+    // }
     ////// THIS FUNCTION 1 IS REDUNDANT --- THIS ONE IS NOT NEEDED... PUSH BURGER IS WHAT'S BEING USED. 
-    burgerInfo=(e, builtBurger)=>{
-        console.log(this.state)
+    // burgerInfo=(e, builtBurger)=>{
+    //     console.log(this.state)
         
-        e.preventDefault();
+    //     e.preventDefault();
 
-        this.setState(prevState=>({
-            burgerArr: prevState.burgerArr.concat(builtBurger)
-        }), this.showState
-        )
-        console.log(builtBurger);
-        setTimeout(()=>{this.props.history.push('/cart')}, 1000)
+    //     this.setState(prevState=>({
+    //         burgerArr: prevState.burgerArr.concat(builtBurger)
+    //     }), this.showState
+    //     )
+    //     console.log(builtBurger);
+    //     setTimeout(()=>{this.props.history.push('/cart')}, 1000)
  
-    }
+    // }
     ////// PUSH BURGER WAS REDUNDANT, BUT IS NOW EDITED, WAS BEING USED PRIMARILY BEFORE REDUX> 
-    pushBurger=(builtBurger)=>{
-        this.setState(prevState=>({
-            burgerArr: prevState.burgerArr.concat(builtBurger)
-        }), this.grandTotal
-        )
+    // pushBurger=(builtBurger)=>{
+    //     this.setState(prevState=>({
+    //         burgerArr: prevState.burgerArr.concat(builtBurger)
+    //     }), this.grandTotal
+    //     )
      
-    }
+    // }
 
 
 
@@ -186,9 +186,9 @@ class Main extends Component {
                 <Background>
                     {/* LOBBY */}
                     <Header 
-                    toggleMenu={this.toggleMenu}
-                    menuCollapsed={this.menuCollapsed}
-                    menuItems={[<NavLink to="/Menu">Menu</NavLink>, <NavLink to='build'>Builder</NavLink>,  <NavLink to='/cart' styles='Header__menu__con__cart'><img className="cart" alt="Cart" src={cartIcon} />{this.state.burgerArr.length}</NavLink>] }
+                    toggleMenu={this.props.toggleMenu}
+                    menuCollapsed={this.props.menuCollapsed}
+                    menuItems={[<NavLink to="/Menu">Menu</NavLink>, <NavLink to='build'>Builder</NavLink>,  <NavLink to='/cart' styles='Header__menu__con__cart'><img className="cart" alt="Cart" src={cartIcon} />{this.props.burgerArr.length}</NavLink>] }
                     >
                
                     <Logo/> 
@@ -198,16 +198,16 @@ class Main extends Component {
                     <Route exact path='/build' render={()=>
                     <BurgerBuilder 
                     ingName={this.ingName}
-                    pushBurger={this.pushBurger}
-                    getGrandTotal={this.getGrandTotal}
-                    // burgerId={this.burgerId}
-                    // assignBurgerId={this.props.assignBurgerId}
+                    pushBurger={this.props.pushBurger}
+                    getGrandTotal={this.props.getGrandTotal}
+                    burgerId={this.props.burgerId}
+                    assignBurgerId={this.props.assignBurgerId}
                     burgerInfo={this.burgerInfo}/>}
 
-                    ingredients={this.state.ingredients}
-                    toppings={this.state.toppings}
-                    totalPrice={this.props.totalPrice}
-         
+                    // ingredients={this.props.ingredients}
+                    // toppings={this.props.toppings}
+                    // totalPrice={this.props.totalPrice}
+                    // totalIngredients={this.props.totalIngredients}
     
                     
 
@@ -216,23 +216,23 @@ class Main extends Component {
                     <Route exact path="/cart" render={()=>
                     <Cart 
                     ingName={this.ingName}
-                    removeBurger={this.removeBurger}
-                    showState={this.showState}
-                    cartItems={this.state.burgerArr} 
-                    grandTotal={this.state.grandTotal}
-                    getGrandTotal={this.getGrandTotal}
+                    removeBurger={this.props.removeBurger}
+                    showState={this.props.showState}
+                    cartItems={this.props.burgerArr} 
+                    grandTotal={this.props.grandTotal}
+                    getGrandTotal={this.props.getGrandTotal}
                     />
                     }/>
 
                     <Route exact path="/checkout" render={()=>
                     <Form 
-                    resetForm={this.reset}
+                    resetForm={this.props.reset}
                     deliveryType={this.state.deliveryType} 
                     formInfo={this.formInfo} 
                     formSubmitted={this.state.formSubmitted}
                     />}/>
 
-                    <Route exact path='/menu' render={()=><Menu pushBurger={this.pushBurger} showState={this.showState} getGrandTotal={this.getGrandTotal} />}/>
+                    <Route exact path='/menu' render={()=><Menu pushBurger={this.props.pushBurger} showState={this.props.showState} getGrandTotal={this.props.getGrandTotal} burgerId={this.props.burgerId} assignBurgerId={this.props.assignBurgerId}/>}/>
                     <Route exact path='/' render={()=><Intro reduxTest={()=>{console.log('Entry')}} test={this.sayHi}/>}/>
                 </Background>
                 <Footer>
@@ -290,4 +290,4 @@ const mapDispatchToProps = (dispatch)=> {
     
     }
 }
-export default withRouter(Main);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Main));

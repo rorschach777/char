@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import Aux from '../components/_MsLib/Hoc/Aux';
-import ContentCon from '../components/_MsLib/Con/ContentCon/ContentCon';
-import Builder from '../components/Builder/Builder';
+import Aux from '../../components/_MsLib/Hoc/Aux';
+import ContentCon from '../../components/_MsLib/Con/ContentCon/ContentCon';
+import Builder from '../../components/Builder/Builder';
 // import * as switchUtil from '../utils/switchUtil';
 
 
 
-import axios from '../axios/axios'; 
+import axios from '../../axios/axios'; 
 class BugerBuilder extends Component {
     state = {
         ingredients: {
@@ -248,8 +248,10 @@ class BugerBuilder extends Component {
         }
         let totalPrice = this.state.totalPrice
 
+        this.props.assignBurgerId()
+
         let burger = {
-            id: this.props.burgerId(),
+            id: this.props.burgerId,
             title: 'Char Custom Burger',
             totalIngredients,
             totalToppings, 
@@ -257,6 +259,7 @@ class BugerBuilder extends Component {
             type: 'build', 
     
         }
+        console.log(burger)
         this.setState(prevState=>({
             orderBurgerDialog: !prevState.orderBurgerDialog
         }))
@@ -315,6 +318,7 @@ class BugerBuilder extends Component {
                     // orderBurger={(e)=>this.props.burgerInfo(e, this.orderBurger())}
                     orderBurger={this.orderBurger}
                     pushBurger={this.props.pushBurger}
+                    getGrandTotal={this.props.getGrandTotal}
                     />
                 </ContentCon>
             </Aux>

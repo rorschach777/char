@@ -29,14 +29,26 @@ class Menu extends Component {
                 let totalPrice = menu[dataElement].totalPrice
                 let title = menu[dataElement].title
                 // return the burger to send the main container state, burger array. 
+                // let burger = {
+                //   id: this.props.burgerId(),
+                //   title, 
+                //   totalIngredients, 
+                //   totalToppings, 
+                //   totalPrice, 
+                //   type: 'menu'  
+                // } 
+
+                // this.props.assignBurgerId()
+
                 let burger = {
-                  id: this.props.burgerId(),
-                  title, 
-                  totalIngredients, 
-                  totalToppings, 
-                  totalPrice, 
-                  type: 'menu'  
-                } 
+                    id: this.props.burgerId,
+                    title, 
+                    totalIngredients, 
+                    totalToppings, 
+                    totalPrice, 
+                    type: 'menu'  
+                  } 
+                console.log(burger)
                 return burger;
 
         }
@@ -194,7 +206,7 @@ class Menu extends Component {
                             modifier={offsetIdx(idx)}
                             description={burgerMenu[cur].description}
                             totalPrice={burgerMenu[cur].totalPrice.toFixed(2)}
-                            click={(e)=>{let x = orderBurger(e); this.props.pushBurger(x); this.toggleDialog()}}
+                            click={(e)=>{let x = orderBurger(e); this.props.pushBurger(x); }}
                             />
                         })
                     }
