@@ -67,12 +67,22 @@ class CartItem extends Component  {
     }
     render(){
         let ingKey = Object.keys(this.props.totalIngredients);
+        let ingValue = Object.values(this.props.totalIngredients);
         let topKey = Object.keys(this.props.totalToppings)
+        let topValue = Object.values(this.props.totalToppings)
         let ingList = ingKey.map((cur, idx)=>{
-            return  <li key={`${cur}-${idx}`}>{this.props.ingName(cur)}</li>
+            if (ingValue[idx] > 0){
+                console.log(ingValue[idx])
+                return  <li key={`${cur}-${idx}`}><span>({ingValue[idx]})</span>&nbsp;{this.props.ingName(cur)}</li>
+            }
+            return 
+          
         });
         let topList = topKey.map((cur, idx)=>{
-            return <li key={`${cur}-${idx}`}>{this.props.ingName(cur)}</li>
+            if (topValue[idx] > 0) {
+                return <li key={`${cur}-${idx}`}><span>({topValue[idx]})</span>&nbsp;{this.props.ingName(cur)}</li>
+            }
+           
         })
         return (
             <div id={this.props.id} className="Cart__item">

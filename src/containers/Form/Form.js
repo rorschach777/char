@@ -4,135 +4,133 @@ import './_Form.scss';
 import Input from '../../components/_MsLib/UI/Form/Input/Input';
 import ButtonMedium from '../../components/_MsLib/UI/Buttons/ButtonMedium/ButtonMedium';
 import {NavLink} from 'react-router-dom';
-import Aux from '../../components/_MsLib/Hoc/Aux'
-
-export class Form extends Component {
+import Aux from '../../components/_MsLib/Hoc/Aux';
+import {connect} from 'react-redux';
+import * as rdxActions from '../../store/actions';
+class Form extends Component {
     constructor(props){
         super(props);
         this.state = {
-            delivery: false, 
-            controls: {
-                firstName: {
-                    inputType: 'input',
-                    elementConfig: {}, 
-                    valid: false, 
-                    validation: {
-                        required: true
-                    },
-                    placeholder: 'First Name',
-                    layout: 'col-lg-7 col-md-6', 
-                    styles: '', 
-                    touched: false
-                },
-                lastName: {
-                    inputType: 'input',
-                    elementConfig: {}, 
-                    valid: false, 
-                    validation: {
-                        required: true
-                    },
-                    placeholder: 'Last Name',
-                    layout: 'col-lg-5 col-md-6', 
-                    styles: '', 
-                    touched: false
-                },
-                emailAddress: {
-                    inputType: 'input',
-                    elementConfig: {}, 
-                    valid: false, 
-                    validation: {
-                        required: true, 
-                        email: true,
-                    },
-                    placeholder: 'Email Address',
-                    layout: 'col-lg-8 col-md-6', 
-                    styles: '', 
-                    touched: false
-                },
-                phoneNumber: {
-                    inputType: 'input',
-                    elementConfig: {}, 
-                    valid: false, 
-                    validation: {
-                        required: true,
-                       minLength: 10
-                    },
-                    placeholder: 'Phone Number',
-                    layout: 'col-lg-4 col-md-6', 
-                    styles: '', 
-                    touched: false
-                },
-                deliveryType: {
-                    inputType: 'select',
-                    elementConfig: {
-                        options: [
-                            {value: null, displayName : '-- SELECT DELIVERY TYPE --'},
-                            {value: 'Pickup', displayName : 'Pickup'},
-                            {value: 'Delivery', displayName : 'Delivery'} 
+            // delivery: false, 
+            // controls: {
+            //     firstName: {
+            //         inputType: 'input',
+            //         elementConfig: {}, 
+            //         valid: false, 
+            //         validation: {
+            //             required: true
+            //         },
+            //         placeholder: 'First Name',
+            //         layout: 'col-lg-7 col-md-6', 
+            //         styles: '', 
+            //         touched: false
+            //     },
+            //     lastName: {
+            //         inputType: 'input',
+            //         elementConfig: {}, 
+            //         valid: false, 
+            //         validation: {
+            //             required: true
+            //         },
+            //         placeholder: 'Last Name',
+            //         layout: 'col-lg-5 col-md-6', 
+            //         styles: '', 
+            //         touched: false
+            //     },
+            //     emailAddress: {
+            //         inputType: 'input',
+            //         elementConfig: {}, 
+            //         valid: false, 
+            //         validation: {
+            //             required: true, 
+            //             email: true,
+            //         },
+            //         placeholder: 'Email Address',
+            //         layout: 'col-lg-8 col-md-6', 
+            //         styles: '', 
+            //         touched: false
+            //     },
+            //     phoneNumber: {
+            //         inputType: 'input',
+            //         elementConfig: {}, 
+            //         valid: false, 
+            //         validation: {
+            //             required: true,
+            //            minLength: 10
+            //         },
+            //         placeholder: 'Phone Number',
+            //         layout: 'col-lg-4 col-md-6', 
+            //         styles: '', 
+            //         touched: false
+            //     },
+            //     deliveryType: {
+            //         inputType: 'select',
+            //         elementConfig: {
+            //             options: [
+            //                 {value: null, displayName : '-- SELECT DELIVERY TYPE --'},
+            //                 {value: 'Pickup', displayName : 'Pickup'},
+            //                 {value: 'Delivery', displayName : 'Delivery'} 
                          
-                        ],
-                        delivery: false
-                    }, 
-                    valid: false, 
-                    validation: {
-                        required: true
-                    },
-                    placeholder: 'Delivery Method',
-                    layout: 'col-lg-4 col-md-6', 
-                    styles: '', 
-                    touched: false
-                },
-                address: {
-                    inputType: 'input',
-                    elementConfig: {}, 
-                    valid: false, 
-                    validation: {
-                        required: true
+            //             ],
+            //             delivery: false
+            //         }, 
+            //         valid: false, 
+            //         validation: {
+            //             required: true
+            //         },
+            //         placeholder: 'Delivery Method',
+            //         layout: 'col-lg-4 col-md-6', 
+            //         styles: '', 
+            //         touched: false
+            //     },
+            //     address: {
+            //         inputType: 'input',
+            //         elementConfig: {}, 
+            //         valid: false, 
+            //         validation: {
+            //             required: true
                         
-                    },
-                    placeholder: 'Address',
-                    layout: 'col-lg-4 col-md-5', 
-                    styles: '', 
-                    touched: false
-                },
-                City: {
-                    inputType: 'input',
-                    elementConfig: {}, 
-                    valid: false, 
-                    validation: {
-                        required: true
-                    },
-                    placeholder: 'City',
-                    layout: 'col-lg-4 col-md-4', 
-                    styles: '', 
-                    touched: false
-                },
-                Zip: {
-                    inputType: 'input',
-                    elementConfig: {}, 
-                    valid: false, 
-                    validation: {
+            //         },
+            //         placeholder: 'Address',
+            //         layout: 'col-lg-4 col-md-5', 
+            //         styles: '', 
+            //         touched: false
+            //     },
+            //     City: {
+            //         inputType: 'input',
+            //         elementConfig: {}, 
+            //         valid: false, 
+            //         validation: {
+            //             required: true
+            //         },
+            //         placeholder: 'City',
+            //         layout: 'col-lg-4 col-md-4', 
+            //         styles: '', 
+            //         touched: false
+            //     },
+            //     Zip: {
+            //         inputType: 'input',
+            //         elementConfig: {}, 
+            //         valid: false, 
+            //         validation: {
                  
-                        zip: true
+            //             zip: true
                    
                  
-                    },
-                    placeholder: 'Zip',
-                    layout: 'col-lg-4 col-md-3', 
-                    styles: '', 
-                    touched: false
-                },
+            //         },
+            //         placeholder: 'Zip',
+            //         layout: 'col-lg-4 col-md-3', 
+            //         styles: '', 
+            //         touched: false
+            //     },
               
         
-            },
-            formIsValid: false, 
+            // },
+            // formIsValid: false, 
 
         }
     }
-    sayHi=(e)=> {
-        e.preventDefault();
-        console.log('hi');
-    }
+
     selectChange = (e)=> {
         if (e.target.value === 'Delivery'){
             this.setState(prevState=>({
@@ -146,66 +144,66 @@ export class Form extends Component {
         }
     }
  
-    checkValidity(value, rules){
-        let isValid = true; 
+    // checkValidity(value, rules){
+    //     let isValid = true; 
      
-        if (rules.required){
-            isValid = value.length > 0 && isValid;
-        }
-        if (rules.email){
-            const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
-            isValid = pattern.test(value) && isValid
-        }
-        if(rules.minLength){
-            isValid = value.length >= rules.minLength
-        }
-        if(rules.maxLength){
-            isValid = value.length <= rules.maxLength
+    //     if (rules.required){
+    //         isValid = value.length > 0 && isValid;
+    //     }
+    //     if (rules.email){
+    //         const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+    //         isValid = pattern.test(value) && isValid
+    //     }
+    //     if(rules.minLength){
+    //         isValid = value.length >= rules.minLength
+    //     }
+    //     if(rules.maxLength){
+    //         isValid = value.length <= rules.maxLength
            
-        }
-        if(rules.zip){
-            isValid = value.length === 5
-        }
-        return isValid;
+    //     }
+    //     if(rules.zip){
+    //         isValid = value.length === 5
+    //     }
+    //     return isValid;
     
-    }
-    inputChangedHandler=(event, inputIdentifier)=>{
-        const updatedOrderForm = {
-            ...this.state.controls
-        };
-        const updatedFormElement = {
-            ...updatedOrderForm[inputIdentifier]
-        };
-        updatedFormElement.value = event.target.value;
-        updatedFormElement.valid  = this.checkValidity(updatedFormElement.value, updatedFormElement.validation);
-        if (inputIdentifier === 'deliveryType' && event.target.value === 'Delivery'){
-            updatedFormElement.elementConfig.delivery = true
-            console.log('true')
-        }
-        else if (inputIdentifier === 'deliveryType' && event.target.value === 'Pickup'){
-            updatedOrderForm.address.valid = true;
-            updatedOrderForm.address.touched = true;
-            updatedOrderForm.City.valid = true;
-            updatedOrderForm.City.touched = true;
-            updatedOrderForm.Zip.valid = true;
-            updatedOrderForm.Zip.touched = true;
+    // }
+    // inputChangedHandler=(event, inputIdentifier)=>{
+    //     const updatedOrderForm = {
+    //         ...this.state.controls
+    //     };
+    //     const updatedFormElement = {
+    //         ...updatedOrderForm[inputIdentifier]
+    //     };
+    //     updatedFormElement.value = event.target.value;
+    //     updatedFormElement.valid  = this.checkValidity(updatedFormElement.value, updatedFormElement.validation);
+    //     if (inputIdentifier === 'deliveryType' && event.target.value === 'Delivery'){
+    //         updatedFormElement.elementConfig.delivery = true
+    //         console.log('true')
+    //     }
+    //     else if (inputIdentifier === 'deliveryType' && event.target.value === 'Pickup'){
+    //         updatedOrderForm.address.valid = true;
+    //         updatedOrderForm.address.touched = true;
+    //         updatedOrderForm.City.valid = true;
+    //         updatedOrderForm.City.touched = true;
+    //         updatedOrderForm.Zip.valid = true;
+    //         updatedOrderForm.Zip.touched = true;
             
-            // updatedFormElement.City.valid = true, 
-            // updatedFormElement.Zip.valid = true
+    //         // updatedFormElement.City.valid = true, 
+    //         // updatedFormElement.Zip.valid = true
     
-        }
-        updatedFormElement.touched = true;
-        updatedOrderForm[inputIdentifier] = updatedFormElement;
-        let formIsValid = true;
-        for (let inputIdentifier in updatedOrderForm){
-            formIsValid = updatedOrderForm[inputIdentifier].valid && formIsValid
-        }
-        this.setState({controls: updatedOrderForm, formIsValid: formIsValid})
-    }
+    //     }
+    //     updatedFormElement.touched = true;
+    //     updatedOrderForm[inputIdentifier] = updatedFormElement;
+    //     let formIsValid = true;
+    //     for (let inputIdentifier in updatedOrderForm){
+    //         formIsValid = updatedOrderForm[inputIdentifier].valid && formIsValid
+    //     }
+    //     this.setState({controls: updatedOrderForm, formIsValid: formIsValid})
+    // }
     returnFormObj = () => {
         // e.preventDefault();
         let formValueGroups = document.querySelectorAll('.Form__row__input-group');
-        const formKeys = Object.keys(this.state.controls)
+        const formKeys = Object.keys(this.props.controls)
         const formValues = [];
  
         formValueGroups.forEach((cur, idx)=>{
@@ -215,15 +213,15 @@ export class Form extends Component {
         console.log(order)
         return order
     }
-  
+ 
     render() {
         let formElements = [];
         // setting an index that increase
         let formElIdx = 0
-        for (let key in this.state.controls){
+        for (let key in this.props.controls){
             formElements.push({
                 id:key,
-                config: this.state.controls[key]
+                config: this.props.controls[key]
 
             })
         }
@@ -235,8 +233,11 @@ export class Form extends Component {
                         inputType={cur.config.inputType}
                         placeholder={cur.config.placeholder}
                         elementConfig={cur.config.elementConfig}
-                        inputChanged={(e)=>{this.inputChangedHandler(e, cur.id)}}
+                        // inputChanged={(e)=>{this.inputChangedHandler(e, cur.id)}}
                         styles={!cur.config.valid && cur.config.touched ? 'invalid' : null}
+
+                        /// RDX
+                        inputChanged={(e)=>{this.props.rdxInputChangedHandler(e, cur.id, this.props.controls)}}
                     />
                 </div>
             )
@@ -303,13 +304,19 @@ export class Form extends Component {
             <div className="Form__row">
                 {returnOneInput()}
             </div>
-            <div className={`Form__row ${!this.state.controls.deliveryType.elementConfig.delivery ? 'u-hide' : ' '}`}>
-                {this.state.controls.deliveryType.elementConfig.delivery ? returnThreeInputs() : null }
+            <div className={`Form__row ${!this.props.controls.deliveryType.elementConfig.delivery ? 'u-hide' : ' '}`}>
+                {this.props.controls.deliveryType.elementConfig.delivery ? returnThreeInputs() : null }
             </div>
             <div className="Form__actions">
                 <h5>{this.state.formIsValid ? 'Looks Good, Please Confirm' : 'Please Enter Your Information Above'}</h5>
                 <NavLink to="/cart"><ButtonMedium text="EDIT ORDER" styles='Form__actions__btn edit' /></NavLink>
-                <ButtonMedium text="CONFIRM" styles='Form__actions__btn checkout' click={(e)=>this.props.formInfo(e, this.returnFormObj() )} disabled={!this.state.formIsValid}/>
+                <ButtonMedium text="CONFIRM" styles='Form__actions__btn checkout' click={(e,)=>
+                {
+                    let formObj = this.props.rdxReturnFormObj(e, this.props.controls);
+                    console.log('---- ACTION INSTANCE OBJECT PASSED -----')
+                    this.props.rdxSendOrder(this.props.burgerArr, formObj.payload.order)
+                }}
+                     disabled={!this.props.formIsValid}/>
             </div>
         </Aux>
         if (this.props.formSubmitted){
@@ -332,4 +339,27 @@ export class Form extends Component {
         );
     }
 }
+const mapStateToProps = state => {
+    return {
+        burgerArr: state.main.burgerArr,
+        formObj: state.form.formObj,
+        formSubmitted: state.form.formSubmitted, 
+        delivery: state.form.delivery,
+        controls: state.form.controls,
+        formIsValid: state.form.formIsValid
+    }
+}
+const mapDispatchToProps = dispatch => {
+    return {
+        rdxReset: ()=>dispatch(rdxActions.reset()),
+        rdxInputChangedHandler: (e, inputIdentifier, controls)=>dispatch(rdxActions.inputChangedHandler(e, inputIdentifier, controls)),
+        rdxSelectChange: (e)=>dispatch(rdxActions.selectChange(e)),
+        rdxReturnFormObj: (e, controls)=>dispatch(rdxActions.returnFormObj(e, controls)),
+        // rdxFormInfo: (e, formObj)=>dispatch(rdxActions.formInfo(e, formObj)),
+        // formInfo: (e, formObj)=>dispatch(rdxActions.formInfo(e, formObj)), 
+        rdxSendOrder: (burgerArr, contactInfo)=>dispatch(rdxActions.sendOrder(burgerArr, contactInfo))
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Form)
+// export default Form
 

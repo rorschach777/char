@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Background from '../components/Background/Background';
 import Intro from './Intro/Intro';
 import BurgerBuilder from './BurgerBuilder/BurgerBuilder';
-import {Form} from './Form/Form';
+import Form from './Form/Form';
 import Menu from './Menu/Menu';
 import Header from '../components/_MsLib/Header/Header';
 import Logo from '../components/_MsLib/UI/Logo/Logo';
@@ -11,8 +11,9 @@ import Cart from '../containers/Cart/Cart';
 import {withRouter, Route, NavLink} from 'react-router-dom';
 import cartIcon from '../assets/images/icons/cart-icon-2.svg';
 import axios from 'axios';
-import * as actionTypes from '../store/actionTypes';
-import {connect} from 'react-redux'
+import * as actionTypes from '../store/actions/actionTypes';
+import {connect} from 'react-redux';
+import * as rdxActions from '../store/actions/index'
 
 class Main extends Component {
     state = {
@@ -140,14 +141,13 @@ class Main extends Component {
     }
     ////// PUSH BURGER WAS REDUNDANT, BUT IS NOW EDITED, WAS BEING USED PRIMARILY BEFORE REDUX> 
     pushBurger=(builtBurger)=>{
+        console.log('HI FROM CLASS PUSH BURGER')
         this.setState(prevState=>({
             burgerArr: prevState.burgerArr.concat(builtBurger)
         }), this.grandTotal
         )
      
     }
-
-
 
     /// Formats the ingredient name to a string that's displayed on the UI. 
     ingName = (ing) => {
@@ -176,9 +176,13 @@ class Main extends Component {
                 // this.setState(prevState=>({
                 //     menuCollapsed: false
                 // }))
-                this.props.showMenu()
+                // this.props.showMenu()
             }
         })
+    }
+    componentDidUpdate(){
+        console.log('Component Did Update')
+        this.props.rdxGetGrandTotal(this.props.burgerArr);
     }
     render() {
         return (
@@ -188,7 +192,9 @@ class Main extends Component {
                     <Header 
                     toggleMenu={this.toggleMenu}
                     menuCollapsed={this.menuCollapsed}
-                    menuItems={[<NavLink to="/Menu">Menu</NavLink>, <NavLink to='build'>Builder</NavLink>,  <NavLink to='/cart' styles='Header__menu__con__cart'><img className="cart" alt="Cart" src={cartIcon} />{this.state.burgerArr.length}</NavLink>] }
+                    menuItems={[<NavLink to="/Menu">Menu</NavLink>, <NavLink to='build'>Builder</NavLink>,  <NavLink to='/cart' styles='Header__menu__con__cart'><img className="cart" alt="Cart" src={cartIcon} />{this.props.burgerArr.length}</NavLink>] }
+                    /// Burger
+                    // menuItems={[<NavLink to="/Menu">Menu</NavLink>, <NavLink to='build'>Builder</NavLink>,  <NavLink to='/cart' styles='Header__menu__con__cart'><img className="cart" alt="Cart" src={cartIcon} />{this.props.burgerArr.length}</NavLink>] }
                     >
                
                     <Logo/> 
@@ -197,30 +203,41 @@ class Main extends Component {
         
                     <Route exact path='/build' render={()=>
                     <BurgerBuilder 
+                    /// Local State
                     ingName={this.ingName}
-                    pushBurger={this.pushBurger}
-                    getGrandTotal={this.getGrandTotal}
-                    // burgerId={this.burgerId}
-                    // assignBurgerId={this.props.assignBurgerId}
-                    burgerInfo={this.burgerInfo}/>}
-
+                    // pushBurger={this.pushBurger}
+                    // getGrandTotal={this.getGrandTotal}
+                    // getGrandTotal={this.props.rdxGetGrandTotal}
+                    burgerId={this.burgerId}
+                    assignBurgerId={this.props.assignBurgerId}
+                    burgerInfo={this.burgerInfo}
                     ingredients={this.state.ingredients}
                     toppings={this.state.toppings}
                     totalPrice={this.props.totalPrice}
-         
-    
+                    burgerId={this.props.burgerId}
                     
+                    ////// RDX 
+            
+                    // actions
+                    pushBurger={this.props.rdxPushBurger}
+                    getGrandTotal={this.props.rdxGetGrandTotal}
 
+
+                    
+                    />
+                    }
                     />
 
                     <Route exact path="/cart" render={()=>
                     <Cart 
                     ingName={this.ingName}
                     removeBurger={this.removeBurger}
-                    showState={this.showState}
-                    cartItems={this.state.burgerArr} 
-                    grandTotal={this.state.grandTotal}
-                    getGrandTotal={this.getGrandTotal}
+                    cartItems={this.props.burgerArr} 
+                    grandTotal={this.props.grandTotal}
+               
+                    /// RDX
+                    getGrandTotal={this.props.rdxGetGrandTotal}
+      
                     />
                     }/>
 
@@ -232,8 +249,8 @@ class Main extends Component {
                     formSubmitted={this.state.formSubmitted}
                     />}/>
 
-                    <Route exact path='/menu' render={()=><Menu pushBurger={this.pushBurger} showState={this.showState} getGrandTotal={this.getGrandTotal} />}/>
-                    <Route exact path='/' render={()=><Intro reduxTest={()=>{console.log('Entry')}} test={this.sayHi}/>}/>
+                    <Route exact path='/menu' render={()=><Menu pushBurger={this.props.rdxPushBurger} showState={this.showState} getGrandTotal={this.getGrandTotal} />}/>
+                    <Route exact path='/' render={()=><Intro click={this.props.rdxShowState}/>}/>
                 </Background>
                 <Footer>
                 <p>{this.props.testingID}</p>
@@ -244,50 +261,20 @@ class Main extends Component {
 
 }
 // REDUX
-const mapStateToProps = (state) =>{
+const mapStateToPropsMain = (state) =>{
     return {
-        /// MAIN
-        introTitle: state.main.introTitle,
-        burgerId: state.main.burgerId,
-        menuCollapsed: state.main.menuCollapsed,
-        burgerQty: state.main.burgerQty,
-        formSubmitted: state.main.formSubmitted,
-        burgerArr: state.main.burgerArr,
-        formObj: state.main.formObj,
-        grandTotal: state.main.grandTotal, 
-        /// BUILDER
-        ingredients: state.builder.ingredients,
-        toppings: state.builder.toppings,
-        totalPrice: state.builder.totalPrice,
-        totalIngredients: state.builder.totalIngredients
-   
+    burgerArr: state.main.burgerArr,
+    grandTotal: state.main.grandTotal
 
     }
 }
-const mapDispatchToProps = (dispatch)=> {
+const mapDispatchToPropsMain = dispatch=> {
     return {
-        reduxTest: ()=>dispatch({type: actionTypes.REDUXTEST}),
-        mainTest:()=>dispatch({type: actionTypes.MAINREDUCERTEST}),
-        assignBurgerId: ()=>dispatch({type:actionTypes.ASSIGNBURGERID}),
-        toggleMenu: ()=>dispatch({type:actionTypes.TOGGLEMENU}),
-        showMenu: ()=>dispatch({type:actionTypes.SHOWMENU}),
-        reset: ()=>dispatch({type:actionTypes.RESET}),
-        pushBurger: (burger)=>dispatch({type: actionTypes.PUSHBURGER, payload: {burger: burger}}),
-        getGrandTotal: ()=>dispatch({type: actionTypes.GRANDTOTAL}),
-        letsEat:()=>dispatch({type: actionTypes.LETSEAT}),
-        removeBurger:(id)=>dispatch({type: actionTypes.REMOVEBURGER, payload: {id: id}}),
-        showState: ()=>dispatch({type:actionTypes.SHOWSTATE}),
-        
-        
+        rdxPushBurger:(e, burger)=>dispatch(rdxActions.pushBurger(e, burger)),
+        rdxShowState:()=>dispatch(rdxActions.showState()),
+        rdxGetGrandTotal: (burgerArr)=>dispatch(rdxActions.getGrandTotal(burgerArr))
 
-        burgerIngQtyTotal: ()=>dispatch({type:actionTypes.INGTOTAL}),
-        burgerTotal: ()=>dispatch({type:actionTypes.BURGERTOTAL}),
-        enableLessButtons: ()=>dispatch({type:actionTypes.ENABLELESSBUTTONS}),
-        addIngHandler: ()=>dispatch({type:actionTypes.ADDINGHANDLER}),
-        removeIngHandler: ()=>dispatch({type:actionTypes.REMOVEINGHANDLER}),
-  
-
-    
     }
 }
-export default withRouter(Main);
+
+export default connect(mapStateToPropsMain, mapDispatchToPropsMain)(withRouter(Main));

@@ -5,6 +5,8 @@ import CartItem from '../../components/Cart/CartItem/CartItem';
 import OrderBurger from '../../components/Summary/OrderBurger/OrderBurger';
 import ButtonMedium from '../../components/_MsLib/UI/Buttons/ButtonMedium/ButtonMedium';
 import {NavLink} from 'react-router-dom';
+import {connect} from 'react-redux';
+import * as rdxActions from '../../store/actions/index';
 
 class Cart extends Component {
     cartItemId=(e)=>{
@@ -40,7 +42,13 @@ class Cart extends Component {
                     totalIngredients={cur.totalIngredients}
                     totalToppings={cur.totalToppings}
                     totalPrice={cur.totalPrice}
-                    removeBurger={(e)=>{let elementId = this.cartItemId(e); this.props.removeBurger(elementId); this.props.getGrandTotal()}}
+                    removeBurger={(e)=>
+                        {
+                        let elementId = this.props.rdxCartItemId(e); 
+                        this.props.rdxRemoveBurger(elementId.payload.target, this.props.burgerArr)
+                        // this.props.getGrandTotal(this.props.burgerArr)
+                        }
+                    }
                     />
                     )})}
                     </div>
@@ -62,5 +70,16 @@ class Cart extends Component {
         );
     }
 }
+const mapStateToProps = state => {
+    return {
+       burgerArr: state.main.burgerArr
+    }
+}
+const mapDispatchToProps = dispatch => {
+    return {
+        rdxCartItemId: (e)=>dispatch(rdxActions.cartItemId(e)),
+        rdxRemoveBurger: (burgerId, burgerArr)=>dispatch(rdxActions.removeBurger(burgerId, burgerArr))
+    }
+}
 
-export default Cart;
+export default connect(mapStateToProps, mapDispatchToProps)(Cart);

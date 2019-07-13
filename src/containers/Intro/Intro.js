@@ -19,7 +19,7 @@ class Intro extends Component {
                 <ContentCon styles={'Intro'}>
                     <Logo styles={'Intro__Logo'}/>
                     <NavLink to='/build'>
-                        <ButtonLarge text="Let's Eat" styles={'color-1'} />
+                        <ButtonLarge text="Let's Eat" click={this.props.click} styles={'color-1'} />
                     </NavLink>
         
                         {/* <ButtonLarge click={this.props.reduxTest} text="Let's Eat" styles={'color-1'} /> */}

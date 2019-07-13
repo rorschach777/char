@@ -78,7 +78,15 @@ class Builder extends Component {
                             </div>
                             <div className="ingredient__actions">
                                 <TotalIngredients styles={'phone'} ingTotal={ingsValues[cur]} headlineStyles='u-hide'></TotalIngredients>
-                                <Controls current={cur} type="ingredients" disabled={true} add={this.props.addIngs} incIngIdx={this.incIngIdx} remove={this.props.removeIngs} />
+                                <Controls current={cur} type="ingredients" 
+                                disabled={true} 
+                                add={this.props.addIngs} 
+                                incIngIdx={this.incIngIdx} 
+                                remove={this.props.removeIngs} 
+                                burger={this.props.burger}
+                                ingTotal={this.props.ingTotal}
+
+                                />
                             </div>
                         </div>
                     </div>
@@ -96,7 +104,14 @@ class Builder extends Component {
                                 {this.props.topPrices[cur].toFixed(2)}
                             </div>
                             <div className="ingredient__actions">
-                                <CheckControl current={cur} type="toppings" add={this.props.addIngs} remove={this.props.removeIngs} />
+                                <CheckControl 
+                                current={cur} 
+                                type="toppings" 
+                                add={this.props.addIngs} 
+                                remove={this.props.removeIngs}
+                                burger={this.props.burger}
+                                ingTotal={this.props.ingTotal}
+                                />
                             </div>
                         </div>
                     </div>
@@ -156,11 +171,22 @@ class Builder extends Component {
                                 totalPrice={this.props.totalPrice}
                             // click={(e)=>{let x = orderBurger(e); this.props.pushBurger(x)}}
                             // click={this.props.orderBurger}
-                            // click={(e)=>{let x = this.props.orderBurger(e); this.props.pushBurger(x)}}
+                            // click={(e)=>{let x = this.props.orderBurger(e, this.props.burger, this.props.totalPrice); this.props.pushBurger(x)}}
                             >
                          
                                     <ButtonMedium
-                                        click={(e) => { let x = this.props.orderBurger(e); this.props.pushBurger(x) }}
+                                        click={
+                                            (e) => { 
+                                            let response = this.props.orderBurger(e, this.props.burger, this.props.totalPrice, 'build', this.props.burgerId); 
+                                            let builtBurger = response.payload.burger;
+                                            this.props.pushBurger(e, builtBurger);
+                                            this.props.incId();
+                                                
+                                            // this.props.getGrandTotal(this.props.burgerArr)
+                                       
+                                       
+                                            }
+                                        }
                                         styles={'order'}
                                         text="Order Now"
                                     />
@@ -218,9 +244,25 @@ class Builder extends Component {
                       
                             <NavLink to='/cart'> 
                                     <ButtonMedium
-                                        click={(e) => { let x = this.props.orderBurger(e); this.props.pushBurger(x) }}
+                                        // Show State
+                                        click={
+                                            (e) => { 
+                                            let response = this.props.orderBurger(e, this.props.burger, this.props.totalPrice, 'build', this.props.burgerId); 
+                                            let builtBurger = response.payload.burger;
+                                            this.props.pushBurger(e, builtBurger);
+                                            this.props.incId();
+                                                
+                                            // this.props.getGrandTotal(this.props.burgerArr)
+                                       
+                                       
+                                            }
+                                        }
+
                                         styles={'order mobile-btn'}
                                         text="Order Now"
+
+                                        // 
+                                     
                                     />
                             </NavLink>
                             {/* <ButtonMedium click={this.props.orderBurger} styles="order mobile-btn" text="Order Now" /> */}

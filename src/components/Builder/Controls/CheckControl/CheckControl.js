@@ -21,7 +21,9 @@ class CheckControl extends Component {
                <button 
                id={`${this.props.current}-more`} 
                className={this.state.added ?  'ingredient__actions--added' : 'ingredient__actions--remove'}
-               onClick={ this.state.added ? (e)=>this.props.add(e, this.props.current, this.props.type, this.disable()) : (e)=>this.props.remove(e, this.props.current, this.props.type, this.disable())}
+               onClick={ this.state.added ?
+                (e)=>{this.props.add(e, this.props.current, this.props.type, this.props.burger, this.props.ingTotal); this.disable(e)} : 
+               (e)=>{this.props.remove(e, this.props.current, this.props.type, this.props.burger); this.disable()}}
                >
                {this.state.added ? iconChecked : iconRemoved}&nbsp;&nbsp;{this.state.added ? 'Add' : 'Remove'} 
                </button>
